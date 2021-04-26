@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:weightSum="7"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <Button
+        android:id="@+id/settingsLayouts"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="Layouts >"
+        android:onClick="chooseLayouts">
+
+    </Button>
+
+    <Button
+        android:id="@+id/settingsBackgrounds"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="Backgrounds >"
+        android:onClick="chooseBackgrounds">
+
+    </Button>
+
+    <Button
+        android:id="@+id/settingsLanguage"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="Language >"
+        android:onClick="chooseLanguage">
+
+    </Button>
+
+    <Button
+        android:id="@+id/settingsFonts"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="Fonts >"
+        android:onClick="chooseFonts">
+
+    </Button>
+
+    <Button
+        android:id="@+id/settingsDateFormats"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="Date Formats >"
+        android:onClick="chooseDateFormats">
+
+    </Button>
+</LinearLayout>
