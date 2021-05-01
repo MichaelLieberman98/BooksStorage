@@ -11,7 +11,7 @@ import android.os.Bundle;
 import java.util.concurrent.ExecutionException;
 
 public class APIResultsActivity extends AppCompatActivity {
-    RecyclerView temprv; //TEMP
+    private RecyclerView temprv;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,7 +19,7 @@ public class APIResultsActivity extends AppCompatActivity {
 
         this.temprv = (RecyclerView) findViewById(R.id.temprv); //TEMP
 
-        try {  //TEMP
+        try {
             new FetchBook(this).execute(Data.getInstance().getBookSearch()).get(); //https://stackoverflow.com/questions/14827532/waiting-till-the-async-task-finish-its-work/14827618
         } catch (ExecutionException e) {
             e.printStackTrace();

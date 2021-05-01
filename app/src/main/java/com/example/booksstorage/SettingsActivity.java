@@ -1,55 +1,50 @@
 package com.example.booksstorage;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
+import android.widget.AdapterView;
 
-public class SettingsActivity extends AppCompatActivity {
-    //settingsLayouts
-    //settingsBackgrounds
-    //settingsLanguage
-    //settingsFonts
-    //settingsDateFormats
-    private Button settingsLayouts;
-    private Button settingsBackgrounds;
-    private Button settingsLanguage;
-    private Button settingsFonts;
-    private Button settingsDateFormats;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.preference.PreferenceFragmentCompat;
+
+public class SettingsActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_settings);
-
-        this.settingsLayouts = (Button) findViewById(R.id.settingsLayouts);
-        this.settingsBackgrounds = (Button) findViewById(R.id.settingsBackgrounds);
-        this.settingsLanguage = (Button) findViewById(R.id.settingsLanguage);
-        this.settingsFonts = (Button) findViewById(R.id.settingsFonts);
-        this.settingsDateFormats = (Button) findViewById(R.id.settingsDateFormats);
-
-
-    }
-
-    public void chooseLayouts(View v){
-
-    }
-
-    public void chooseBackgrounds(View v){
-
-    }
-
-    public void chooseLanguage(View v){
-
-    }
-
-    public void chooseFonts(View v){
-
-    }
-
-    public void chooseDateFormats(View v){
-
+        setContentView(R.layout.settings_activity);
+        if (savedInstanceState == null) {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.settings, new SettingsFragment())
+                    .commit();
+        }
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
     }
 
 
+
+    public static class SettingsFragment extends PreferenceFragmentCompat {
+        @Override
+        public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
+            setPreferencesFromResource(R.xml.root_preferences, rootKey);
+        }
+    }
+
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
 }

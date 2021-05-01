@@ -8,10 +8,18 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
+    <color name="light_mode_main_background">#edf1f5</color>
 
-    <color name="allActivityBackgrounds">#FFebebeb</color>
+    <color name="light_mode_container_background">#fafafa</color>
 
-    <color name="allRecyclerViewItemBackgrounds">#ffffff</color>
+    <color name="dark_mode_main_background">#000000</color>
+
+    <color name="dark_mode_container_background">#222222</color>
+
+
+<!--    <color name="allActivityBackgrounds">#FFebebeb</color>-->
+
+<!--    <color name="allRecyclerViewItemBackgrounds">#ffffff</color>-->
 
     <color name="allRecyclerViewMoreButtonColors">#13ce66</color>
 

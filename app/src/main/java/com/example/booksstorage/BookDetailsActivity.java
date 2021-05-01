@@ -30,19 +30,19 @@ public class BookDetailsActivity extends AppCompatActivity {
     BookDetailsBuyButton
 
      */
-    ImageView BookDetailsCover;
+    private ImageView BookDetailsCover;
 
-    TextView BookDetailsTitle;
-    TextView BookDetailsAuthors;
-    TextView BookDetailsPublishDate;
-    TextView BookDetailsPublisher;
+    private TextView BookDetailsTitle;
+    private TextView BookDetailsAuthors;
+    private TextView BookDetailsPublishDate;
+    private TextView BookDetailsPublisher;
 
-    TextView BookDetailsDescription;
+    private TextView BookDetailsDescription;
 
-    Button BookDetailsReadButton;
-    Button BookDetailsToReadButton;
-    Button BookDetailsShareButton;
-    Button BookDetailsBuyButton;
+    private Button BookDetailsReadButton;
+    private Button BookDetailsToReadButton;
+    private Button BookDetailsShareButton;
+    private Button BookDetailsBuyButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

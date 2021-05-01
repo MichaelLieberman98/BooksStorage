@@ -25,10 +25,11 @@ public class MainActivity extends AppCompatActivity {
     enterToReadActivityButton
      */
 
-    EditText searchField;
-    Button searchButton;
-    Button enterReadActivityButton;
-    Button enterToReadActivityButton;
+    private EditText searchField;
+    private Button searchButton;
+    private Button enterReadActivityButton;
+    private Button enterToReadActivityButton;
+
 
 
 

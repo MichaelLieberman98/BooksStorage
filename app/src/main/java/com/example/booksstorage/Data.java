@@ -33,6 +33,11 @@ public class Data {
         DETAILS
     }
 
+    enum DarkLight{
+        DARK,
+        LIGHT
+    }
+
 
 
     private Stack<Activity> activityStack = new Stack<>();
