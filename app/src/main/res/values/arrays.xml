@@ -1,0 +1,16 @@
+<resources>
+    <!-- Main Preference -->
+    <string-array name="main_entries">
+        <item>Book 1</item>
+        <item>Book 2</item>
+        <item>Book 3</item>
+        <item>Book 4</item>
+    </string-array>
+
+    <string-array name="main_values">
+        <item>book1</item>
+        <item>book2</item>
+        <item>book3</item>
+        <item>book4</item>
+    </string-array>
+</resources>

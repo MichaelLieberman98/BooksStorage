@@ -1,0 +1,40 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory app:title="@string/bg_settings_header">
+
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="dark"
+            android:title="Dark Mode" />
+
+        <ListPreference
+            app:defaultValue="book1"
+            app:entries="@array/main_entries"
+            app:entryValues="@array/main_values"
+            app:key="main_image"
+            app:title="@string/main_bg_title"
+            app:useSimpleSummaryProvider="true" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/favorite_team_header">
+
+        <EditTextPreference
+            app:key="user_name"
+            app:title="@string/favorite_team"
+            app:useSimpleSummaryProvider="true" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/contact_header">
+
+        <EditTextPreference
+            app:key="contact"
+            app:title="Contact"
+            app:useSimpleSummaryProvider="true" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:weightSum="10"
+    android:background="#FF888888">
+
+    <ImageView
+        android:id="@+id/ToReadActivityCover"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="7"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="80dp"
+        android:layout_marginRight="80dp"
+        android:layout_marginBottom="30dp">
+
+    </ImageView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        android:orientation="horizontal"
+        android:weightSum="1">
+
+        <!--        weightSum 3 originally for "REMOVE", "READ" and "MORE >"-->
+
+
+
+        <Button
+            android:id="@+id/ToReadActivityMore"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="50dp"
+
+            android:backgroundTint="@color/allRecyclerViewMoreButtonColors"
+
+            android:text="More >">
+
+        </Button>
+
+    </LinearLayout>
+
+</LinearLayout>
+
+    <!--<Button-->
+    <!--android:id="@+id/rvRemoveButton"-->
+    <!--android:layout_width="0dp"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_weight="1"-->
+
+    <!--android:layout_marginLeft="30dp"-->
+    <!--android:layout_marginRight="5dp"-->
+
+    <!--android:layout_marginTop="50dp"-->
+    <!--android:layout_marginBottom="50dp"-->
+
+    <!--android:text="Remove">-->
+
+    <!--</Button>-->
+
+    <!--<Button-->
+    <!--android:id="@+id/rvReadButton"-->
+    <!--android:layout_width="0dp"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_weight="1"-->
+
+    <!--android:layout_marginLeft="5dp"-->
+    <!--android:layout_marginRight="5dp"-->
+
+    <!--android:layout_marginTop="50dp"-->
+    <!--android:layout_marginBottom="50dp"-->
+
+    <!--android:text="Read">-->
+
+    <!--</Button>-->
