@@ -28,18 +28,19 @@ public class ToReadActivity extends AppCompatActivity {
         this.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         System.out.println("toread books size = " + Data.getInstance().getBooksToRead().size());
+        loadContent();
     }
 
     public void loadContent(){
         boolean lightDark = sharedPreferences.getBoolean("lightdark", true);
         if (lightDark){
-            this.mainLayout.setBackgroundColor(getResources().getColor(R.color.light_mode_main_background));
-            this.ToReadActivityRV.setBackgroundColor(getResources().getColor(R.color.light_mode_container_background));
-        } else {
             this.mainLayout.setBackgroundColor(getResources().getColor(R.color.dark_mode_main_background));
-            this.ToReadActivityRV.setBackgroundColor(getResources().getColor(R.color.dark_mode_container_background));
-        }
+            this.ToReadActivityRV.setBackgroundColor(getResources().getColor(R.color.dark_mode_main_background));
 
+        } else {
+            this.mainLayout.setBackgroundColor(getResources().getColor(R.color.light_mode_main_background));
+            this.ToReadActivityRV.setBackgroundColor(getResources().getColor(R.color.light_mode_main_background));
+        }
 
         this.ToReadActivityRV.setAdapter(new ToReadActivityRVadapter(this));
 

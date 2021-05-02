@@ -5,6 +5,9 @@ package com.example.booksstorage;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.provider.ContactsContract;
 import android.text.Html;
@@ -13,10 +16,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.preference.PreferenceManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -40,19 +46,20 @@ public class tempAPIAdapter extends RecyclerView.Adapter<tempAPIAdapter.APIBookI
 
     public static class APIBookItemHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         ImageView tempAPIcover;
-
+        RelativeLayout resultsContainer;
         TextView tempAPItitle;
         TextView tempAPIauthors;
         TextView tempAPIpublishDate;
         TextView tempAPIpublishers;
         Button tempAPImoreButton;
+        SharedPreferences sharedPreferences;
 
         Context ct;
         public APIBookItemHolder(@NonNull View itemView, Context ct) {
             super(itemView);
 
             this.tempAPIcover = itemView.findViewById(R.id.tempAPIcover);
-
+            this.resultsContainer = itemView.findViewById(R.id.resultsContainer);
             this.tempAPItitle = itemView.findViewById(R.id.tempAPItitle);
             this.tempAPIauthors = itemView.findViewById(R.id.tempAPIauthors);
             this.tempAPIpublishDate = itemView.findViewById(R.id.tempAPIpublishDate);
@@ -62,6 +69,21 @@ public class tempAPIAdapter extends RecyclerView.Adapter<tempAPIAdapter.APIBookI
             this.tempAPImoreButton.setOnClickListener(this);
 
             this.ct = ct;
+            this.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(ct);
+            boolean lightDark = sharedPreferences.getBoolean("lightdark", true);
+            if (lightDark){
+                Drawable darkMode = ct.getResources().getDrawable(R.drawable.border_dark_mode);
+                this.resultsContainer.setBackground(darkMode);
+                int textColor = ct.getResources().getColor(R.color.button_text_color);
+                this.tempAPItitle.setTextColor(textColor);
+                this.tempAPIauthors.setTextColor(textColor);
+                this.tempAPIpublishDate.setTextColor(textColor);
+                this.tempAPIpublishers.setTextColor(textColor);
+
+            } else {
+                Drawable lightMode = ct.getResources().getDrawable(R.drawable.border_light_mode);
+                this.resultsContainer.setBackground(lightMode);
+            }
         }
 
         @Override
@@ -84,8 +106,6 @@ public class tempAPIAdapter extends RecyclerView.Adapter<tempAPIAdapter.APIBookI
             ct.startActivity(show);
         }
     }
-
-
 
     @Override
     public void onBindViewHolder(@NonNull tempAPIAdapter.APIBookItemHolder holder, int position) {
@@ -112,13 +132,12 @@ public class tempAPIAdapter extends RecyclerView.Adapter<tempAPIAdapter.APIBookI
 
         holder.tempAPIpublishers.setText(Data.getInstance().getBooksFromAPI().get(position).getPublisher());
 
-        String redString= "<font color="+ ct.getResources().getColor(R.color.allMoreWords)+">More ></font>"; //
-        String blackString = "<font color="+ ct.getResources().getColor(R.color.allRecyclerViewMoreButtonColors)+">"+position+"</font>";
+        String redString= "<font color="+ ct.getResources().getColor(R.color.button_text_color)+">More ></font>"; //
+        String blackString = "<font color="+ ct.getResources().getColor(R.color.button_text_color)+">"+position+"</font>";
 
         holder.tempAPImoreButton.setText(Html.fromHtml(redString + blackString)); //we aren't really changing the text here are we...
 
         //https://stackoverflow.com/questions/45998111/displaying-buttons-text-with-two-different-colors
-
 
     }
 

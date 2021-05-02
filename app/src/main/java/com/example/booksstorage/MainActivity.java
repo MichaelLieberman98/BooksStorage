@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -17,6 +18,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -30,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     enterToReadActivityButton
      */
 
+    LinearLayout mainBG;
     EditText searchField;
     ImageView bookImage;
     TextView tvuserName;
@@ -59,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
         this.enterToReadActivityButton = (Button) findViewById(R.id.enterToReadActivityButton);
         this.bookImage = (ImageView) findViewById(R.id.book_image);
         this.tvuserName = (TextView) findViewById(R.id.username);
+        this.mainBG = (LinearLayout) findViewById(R.id.main_bg);
 
         PreferenceManager.setDefaultValues(this, R.xml.root_preferences, false);
 
@@ -88,12 +92,22 @@ public class MainActivity extends AppCompatActivity {
 
     public void getUserPreferences(){
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-
-
-
         mainBookImage = sharedPreferences.getString("main_image", "book1");
         userName = sharedPreferences.getString("user_name", "User");
         contact = sharedPreferences.getString("contact", "3478512548");
+        boolean lightDark = sharedPreferences.getBoolean("lightdark", true);
+        if (lightDark){
+            this.mainBG.setBackgroundColor(getResources().getColor(R.color.dark_mode_main_background));
+            this.searchField.setBackground(getResources().getDrawable(R.drawable.border_dark_mode));
+            this.searchField.setHintTextColor(getResources().getColor(R.color.dark_mode_hint_color));
+            this.searchField.setTextColor(getResources().getColor(R.color.button_text_color));
+            this.tvuserName.setTextColor(getResources().getColor(R.color.button_text_color));
+        } else {
+            this.mainBG.setBackgroundColor(getResources().getColor(R.color.light_mode_main_background));
+            this.searchField.setBackground(getResources().getDrawable(R.drawable.border_light_mode));
+            this.searchField.setTextColor(getResources().getColor(R.color.textColor));
+            this.tvuserName.setTextColor(getResources().getColor(R.color.textColor));
+        }
     }
 
     public void setBookImage(String mainBookImage) {

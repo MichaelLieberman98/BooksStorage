@@ -10,7 +10,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.widget.RelativeLayout;
 
 import java.util.concurrent.ExecutionException;
 
@@ -18,7 +20,7 @@ public class APIResultsActivity extends AppCompatActivity {
     private ConstraintLayout mainLayout;
     private RecyclerView temprv;
     private int orientation;
-    private SharedPreferences sharedPeferences;
+    private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,10 +28,9 @@ public class APIResultsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_a_p_i_results);
 
         this.mainLayout = (ConstraintLayout) findViewById(R.id.resultsMainLayout);
-
         this.temprv = (RecyclerView) findViewById(R.id.temprv);
 
-        this.sharedPeferences = PreferenceManager.getDefaultSharedPreferences(this);
+        this.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         try {
             new FetchBook(this).execute(Data.getInstance().getBookSearch()).get(); //https://stackoverflow.com/questions/14827532/waiting-till-the-async-task-finish-its-work/14827618
@@ -38,17 +39,18 @@ public class APIResultsActivity extends AppCompatActivity {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        loadContent();
 
     }
 
     public void loadContent(){
-        boolean lightDark = sharedPeferences.getBoolean("lightdark", true);
+        boolean lightDark = sharedPreferences.getBoolean("lightdark", true);
         if (lightDark){
-            this.mainLayout.setBackgroundColor(getResources().getColor(R.color.light_mode_main_background));
-            this.temprv.setBackgroundColor(getResources().getColor(R.color.light_mode_main_background));
-        } else {
             this.mainLayout.setBackgroundColor(getResources().getColor(R.color.dark_mode_main_background));
             this.temprv.setBackgroundColor(getResources().getColor(R.color.dark_mode_main_background));
+        } else {
+            this.mainLayout.setBackgroundColor(getResources().getColor(R.color.light_mode_main_background));
+            this.temprv.setBackgroundColor(getResources().getColor(R.color.light_mode_main_background));
         }
 
         this.temprv.setAdapter(new tempAPIAdapter(this));

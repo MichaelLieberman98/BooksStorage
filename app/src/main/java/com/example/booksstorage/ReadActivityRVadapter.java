@@ -2,18 +2,23 @@ package com.example.booksstorage;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
+import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class ReadActivityRVadapter extends RecyclerView.Adapter<ReadActivityRVadapter.ReadActivityRVHolder> {
     private Context ct;
+
     public ReadActivityRVadapter(Context ct){
         this.ct = ct;
     }
@@ -30,19 +35,29 @@ public class ReadActivityRVadapter extends RecyclerView.Adapter<ReadActivityRVad
 
     public static class ReadActivityRVHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         ImageView ReadActivityCover;
-
+        RelativeLayout readContainer;
         Button ReadActivityMore;
+        SharedPreferences sharedPreferences;
 
         Context ct;
         public ReadActivityRVHolder(@NonNull View itemView, Context ct){
             super(itemView);
 
             this.ReadActivityCover = (ImageView) itemView.findViewById(R.id.ReadActivityCover);
-
+            this.readContainer = (RelativeLayout) itemView.findViewById(R.id.readContainer);
             this.ReadActivityMore = (Button) itemView.findViewById(R.id.ReadActivityMore);
             this.ReadActivityMore.setOnClickListener(this);
 
             this.ct = ct;
+            this.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(ct);
+            boolean lightDark = sharedPreferences.getBoolean("lightdark", true);
+            if (lightDark){
+                Drawable darkMode = ct.getResources().getDrawable(R.drawable.border_dark_mode);
+                this.readContainer.setBackground(darkMode);
+            } else {
+                Drawable lightMode = ct.getResources().getDrawable(R.drawable.border_light_mode);
+                this.readContainer.setBackground(lightMode);
+            }
         }
 
         @Override
@@ -69,8 +84,8 @@ public class ReadActivityRVadapter extends RecyclerView.Adapter<ReadActivityRVad
     public void onBindViewHolder(@NonNull ReadActivityRVadapter.ReadActivityRVHolder holder, int position){
         holder.ReadActivityCover.setImageBitmap(Data.getInstance().getBooksAlreadyRead().get(position).getCover());
 
-        String redString= "<font color="+ ct.getResources().getColor(R.color.allMoreWords)+">More ></font>"; //
-        String blackString = "<font color="+ ct.getResources().getColor(R.color.allRecyclerViewMoreButtonColors)+">"+position+"</font>";
+        String redString= "<font color="+ ct.getResources().getColor(R.color.button_text_color)+">More ></font>"; //
+        String blackString = "<font color="+ ct.getResources().getColor(R.color.button_text_color)+">"+position+"</font>";
         holder.ReadActivityMore.setText(Html.fromHtml(redString + blackString));
     }
 

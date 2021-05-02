@@ -2,15 +2,18 @@ package com.example.booksstorage;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.preference.PreferenceManager;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -33,8 +36,8 @@ public class BookDetailsActivity extends AppCompatActivity {
     BookDetailsBuyButton
 
      */
-    private ConstraintLayout mainLayout;
-    private LinearLayout containerLayout;
+    private LinearLayout mainLayout;
+    private RelativeLayout detailsContainer;
 
     ImageView BookDetailsCover;
     private int orientation;
@@ -56,8 +59,8 @@ public class BookDetailsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_details);
-        this.mainLayout = (ConstraintLayout) findViewById(R.id.bookDetailsMainLayout);
-        this.containerLayout = (LinearLayout) findViewById(R.id.bookDetailsContainerLayout);
+        this.mainLayout = (LinearLayout) findViewById(R.id.bookDetailsMainLayout);
+        this.detailsContainer = (RelativeLayout) findViewById(R.id.detailsContainer);
 
         this.BookDetailsCover = (ImageView) findViewById(R.id.BookDetailsCover);
         this.BookDetailsTitle = (TextView) findViewById(R.id.BookDetailsTitle);
@@ -70,7 +73,7 @@ public class BookDetailsActivity extends AppCompatActivity {
         this.BookDetailsToReadButton = (Button) findViewById(R.id.BookDetailsToReadButton);
         this.BookDetailsShareButton = (Button) findViewById(R.id.BookDetailsShareButton);
         this.BookDetailsBuyButton = (Button) findViewById(R.id.BookDetailsBuyButton);
-
+        this.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         System.out.println("activity stack");
         System.out.println(Data.getInstance().getActivityStack().toString().replaceAll("\\[", "").replaceAll("]", ""));
@@ -82,11 +85,18 @@ public class BookDetailsActivity extends AppCompatActivity {
 
         boolean lightDark = sharedPreferences.getBoolean("lightdark", true);
         if (lightDark){
-            this.mainLayout.setBackgroundColor(getResources().getColor(R.color.light_mode_main_background));
-            this.containerLayout.setBackgroundColor(getResources().getColor(R.color.light_mode_container_background));
-        } else {
             this.mainLayout.setBackgroundColor(getResources().getColor(R.color.dark_mode_main_background));
-            this.containerLayout.setBackgroundColor(getResources().getColor(R.color.dark_mode_container_background));
+            this.detailsContainer.setBackground(getResources().getDrawable(R.drawable.border_dark_mode));
+            int textColor = this.getResources().getColor(R.color.button_text_color);
+            this.BookDetailsTitle.setTextColor(textColor);
+            this.BookDetailsAuthors.setTextColor(textColor);
+            this.BookDetailsPublishDate.setTextColor(textColor);
+            this.BookDetailsPublisher.setTextColor(textColor);
+            this.BookDetailsDescription.setTextColor(textColor);
+
+        } else {
+            this.mainLayout.setBackgroundColor(getResources().getColor(R.color.light_mode_main_background));
+            this.detailsContainer.setBackground(getResources().getDrawable(R.drawable.border_light_mode));
         }
 
 

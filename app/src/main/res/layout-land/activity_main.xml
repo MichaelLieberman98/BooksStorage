@@ -11,10 +11,10 @@
     <ImageView
         android:id="@+id/book_image"
         android:src="@drawable/book_icon_1"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="7"
-        android:layout_margin="50dp">
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_margin="5dp"
+        android:layout_gravity="center_horizontal">
 
     </ImageView>
 
@@ -26,14 +26,14 @@
         android:textStyle="bold"
         android:textSize="20sp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="5dp"
         />
 
 
     <EditText
         android:id="@+id/searchField"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_weight="2"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
@@ -41,14 +41,14 @@
         android:hint="Enter a book title..."
         android:padding="5dp"
         android:textColor="@color/textColor"
-        android:layout_marginBottom="20dp">
+        android:layout_marginBottom="5dp">
 
     </EditText>
 
     <Button
         android:id="@+id/searchButton"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_weight="2"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
@@ -60,7 +60,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_weight="3"
         android:orientation="horizontal"
         android:weightSum="2">
@@ -72,13 +72,9 @@
             android:layout_weight="1"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="20dp"
-
             android:layout_marginTop="20dp"
-
             android:backgroundTint="@color/blueButton"
-
             android:text="READ"
-
             android:onClick="readAction">
 
         </Button>

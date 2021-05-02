@@ -9,9 +9,10 @@
     <color name="white">#FFFFFFFF</color>
 
 
-    <color name="light_mode_main_background">#edf1f5</color>
+    <color name="light_mode_main_background">#DEE1E6</color>
     <color name="light_mode_container_background">#fafafa</color>
     <color name="dark_mode_main_background">#000000</color>
+    <color name="dark_mode_hint_color">#939393</color>
     <color name="dark_mode_container_background">#222222</color>
 
     <color name="greenButton">#ff13ce66</color>
@@ -26,7 +27,9 @@
     <color name="allRecyclerViewMoreButtonColors">#13ce66</color>
 
     <color name="allMoreWords">#FF000000</color>
+    <color name="textColor">#000000</color>
+    <color name="button_text_color">#FFFFFF</color>
 
 
-<!--    <color name="disabledButton">#FF696969</color>-->
+    <!--    <color name="disabledButton">#FF696969</color>-->
 </resources>

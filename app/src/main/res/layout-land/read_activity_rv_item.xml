@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     android:layout_height="wrap_content"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_margin="30dp"
-    android:orientation="vertical">
+    android:layout_margin="5dp"
+    android:orientation="horizontal">
 
 
     <RelativeLayout
@@ -19,19 +19,19 @@
         android:layout_width="@dimen/bookcover_width"
         android:layout_height="@dimen/bookcover_height"
         android:layout_centerHorizontal="true"
-        android:layout_margin="20dp"></ImageView>
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"></ImageView>
 
         <Button
             android:id="@+id/ReadActivityMore"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_below="@id/ReadActivityCover"
             android:layout_centerHorizontal="true"
             android:backgroundTint="@color/blueButton"
-            android:textSize="15dp"
+            android:textSize="10dp"
             android:textStyle="bold"
-            android:text="More >"
-            android:layout_marginBottom="20dp">
+            android:text="More >">
 
         </Button>
 

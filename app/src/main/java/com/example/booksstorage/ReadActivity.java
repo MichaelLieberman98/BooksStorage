@@ -32,17 +32,19 @@ public class ReadActivity extends AppCompatActivity {
         this.ReadActivityRV = (RecyclerView) findViewById(R.id.ReadActivityRV);
 
         this.sharedPeferences = PreferenceManager.getDefaultSharedPreferences(this);
-
+        loadContent();
     }
 
     public void loadContent(){
+
         boolean lightDark = sharedPeferences.getBoolean("lightdark", true);
         if (lightDark){
-            this.mainLayout.setBackgroundColor(getResources().getColor(R.color.light_mode_main_background));
-            this.ReadActivityRV.setBackgroundColor(getResources().getColor(R.color.light_mode_main_background));
-        } else {
             this.mainLayout.setBackgroundColor(getResources().getColor(R.color.dark_mode_main_background));
             this.ReadActivityRV.setBackgroundColor(getResources().getColor(R.color.dark_mode_main_background));
+
+        } else {
+            this.mainLayout.setBackgroundColor(getResources().getColor(R.color.light_mode_main_background));
+            this.ReadActivityRV.setBackgroundColor(getResources().getColor(R.color.light_mode_main_background));
         }
 
         this.ReadActivityRV.setAdapter(new ReadActivityRVadapter(this));
