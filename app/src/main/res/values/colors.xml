@@ -11,12 +11,25 @@
 
     <color name="light_mode_main_background">#edf1f5</color>
     <color name="light_mode_container_background">#fafafa</color>
+    <color name="light_mode_search_border">#bbffff</color>
+    <color name="light_mode_search_background">#ffffff</color>
+    <color name="light_mode_search_hint">#000000</color>
+    <color name="light_mode_read_button_text_color">#ffffff</color>
+
+
+
     <color name="dark_mode_main_background">#000000</color>
     <color name="dark_mode_container_background">#222222</color>
+    <color name="dark_mode_search_border">#ffffff</color>
+    <color name="dark_mode_search_background">#000000</color>
+    <color name="dark_mode_search_hint">#ffffff</color>
+    <color name="dark_mode_read_button_text_color">#000000</color>
 
     <color name="greenButton">#ff13ce66</color>
     <color name="redButton">#fff95f62</color>
     <color name="blueButton">#ff2693ff</color>
+
+
 
 
 <!--    <color name="allActivityBackgrounds">#FFebebeb</color>-->

@@ -1,5 +1,6 @@
 package com.example.booksstorage;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -43,4 +44,10 @@ public class SettingsActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+
+    @Override
+    public void onBackPressed(){
+        Intent main = new Intent(this, MainActivity.class);
+        startActivity(main);
+    }
 }

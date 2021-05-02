@@ -4,7 +4,9 @@
     android:layout_width="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:weightSum="20"
-    android:orientation="vertical">
+    android:orientation="vertical"
+
+    android:id="@+id/mainActivitymainLayout">
 
     <ImageView
         android:id="@+id/book_image"
@@ -33,7 +35,14 @@
         android:layout_height="0dp"
         android:layout_weight="2"
         android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp">
+        android:layout_marginRight="40dp"
+
+        android:drawableRight="@drawable/ic_lightmodesearchbaricon"
+
+        android:background="@drawable/lightmainsearchbarborder"
+
+
+        android:hint="  Type author, book name...">
 
     </EditText>
 

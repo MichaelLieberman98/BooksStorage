@@ -1,6 +1,7 @@
 package com.example.booksstorage;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,6 +18,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -29,6 +31,10 @@ public class MainActivity extends AppCompatActivity {
     enterReadActivityButton
     enterToReadActivityButton
      */
+
+    LinearLayout mainLayout;
+    private int orientation;
+    private SharedPreferences sharedPreferences;
 
     EditText searchField;
     ImageView bookImage;
@@ -53,6 +59,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        this.mainLayout = (LinearLayout) findViewById(R.id.mainActivitymainLayout);
+
         this.searchField = (EditText) findViewById(R.id.searchField);
         this.searchButton = (Button) findViewById(R.id.searchButton);
         this.enterReadActivityButton = (Button) findViewById(R.id.enterReadActivityButton);
@@ -60,43 +68,40 @@ public class MainActivity extends AppCompatActivity {
         this.bookImage = (ImageView) findViewById(R.id.book_image);
         this.tvuserName = (TextView) findViewById(R.id.username);
 
+
+
+        loadContent();
+    }
+
+    public void loadContent(){
+//        getUserPreferences();
         PreferenceManager.setDefaultValues(this, R.xml.root_preferences, false);
 
-        getUserPreferences();
-        setBookImage(mainBookImage);
-        tvuserName.setText("Hello " + userName + " Time To Read Some Books!");
-
-        //MP6
-        this.receiver = new BookStorageReceiver();
-        registerReceiver(this.receiver, addIntentFilters()); //when not using LocalBroadcastManager
-//        LocalBroadcastManager.getInstance(this).registerReceiver(receiver, new IntentFilter(ACTION_CUSTOM_BROADCAST));
-        /////
-    }
-
-    //MP6
-    protected IntentFilter addIntentFilters(){
-        IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction(ACTION_CUSTOM_BROADCAST);
-        intentFilter.addAction(Intent.ACTION_POWER_CONNECTED);
-        intentFilter.addAction(Intent.ACTION_POWER_DISCONNECTED);
-        intentFilter.addAction(Intent.ACTION_BATTERY_LOW);
-        intentFilter.addAction(Intent.ACTION_BATTERY_OKAY);
-        intentFilter.addAction(Intent.ACTION_AIRPLANE_MODE_CHANGED);
-        return intentFilter;
-    }
-    /////
-
-    public void getUserPreferences(){
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        this.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
 
+        boolean lightDark = this.sharedPreferences.getBoolean("lightdark", true);
+
+        System.out.println("light dark = " + lightDark);
+        if (lightDark){
+            this.mainLayout.setBackgroundColor(getResources().getColor(R.color.light_mode_main_background));
+
+            this.searchField.setBackground(ContextCompat.getDrawable(this, R.drawable.lightmainsearchbarborder));
+
+            this.searchField.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.lightmodesearchbaricon), null,null, null);
+            this.searchField.setHintTextColor(getResources().getColor(R.color.light_mode_search_hint));
+        } else {
+            this.mainLayout.setBackgroundColor(getResources().getColor(R.color.dark_mode_main_background));
+        }
 
         mainBookImage = sharedPreferences.getString("main_image", "book1");
         userName = sharedPreferences.getString("user_name", "User");
         contact = sharedPreferences.getString("contact", "3478512548");
-    }
 
-    public void setBookImage(String mainBookImage) {
+
+
+
+//        setBookImage(mainBookImage);
         bookImage = findViewById(R.id.book_image);
         switch (mainBookImage){
             case "book1":
@@ -112,6 +117,29 @@ public class MainActivity extends AppCompatActivity {
                 bookImage.setImageResource(R.drawable.book_icon_4);
                 break;
         }
+
+
+
+
+        tvuserName.setText("Hello " + userName + " Time To Read Some Books!");
+
+        //MP6
+        this.receiver = new BookStorageReceiver();
+        registerReceiver(this.receiver, addIntentFilters()); //when not using LocalBroadcastManager
+//        LocalBroadcastManager.getInstance(this).registerReceiver(receiver, new IntentFilter(ACTION_CUSTOM_BROADCAST));
+        /////
+
+
+    }
+
+
+
+    public void getUserPreferences(){
+
+    }
+
+    public void setBookImage(String mainBookImage) {
+
     }
 
     @Override
@@ -122,6 +150,19 @@ public class MainActivity extends AppCompatActivity {
         setBookImage(mainBookImage);
         tvuserName.setText("Hello " + userName + " Time To Read Some Books!");
     }
+
+    //MP6
+    protected IntentFilter addIntentFilters(){
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(ACTION_CUSTOM_BROADCAST);
+        intentFilter.addAction(Intent.ACTION_POWER_CONNECTED);
+        intentFilter.addAction(Intent.ACTION_POWER_DISCONNECTED);
+        intentFilter.addAction(Intent.ACTION_BATTERY_LOW);
+        intentFilter.addAction(Intent.ACTION_BATTERY_OKAY);
+        intentFilter.addAction(Intent.ACTION_AIRPLANE_MODE_CHANGED);
+        return intentFilter;
+    }
+    /////
 
     public void searchAction(View v){
         if (!(this.searchField.getText().length() == 0)){
