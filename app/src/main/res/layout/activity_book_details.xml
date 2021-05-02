@@ -1,175 +1,192 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
-    android:weightSum="20"
-    android:orientation="vertical"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    android:id="@+id/bookDetailsMainLayout">
+
 
     <LinearLayout
+        android:id="@+id/bookDetailsContainerLayout"
+        android:layout_height="match_parent"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="17"
-        android:orientation="horizontal"
-        android:weightSum="2">
+        android:weightSum="20"
+        android:orientation="vertical"
 
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="80dp"
+        xmlns:android="http://schemas.android.com/apk/res/android">
 
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:weightSum="10">
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="17"
+            android:orientation="horizontal"
+            android:weightSum="2">
 
-            <ImageView
-                android:id="@+id/BookDetailsCover"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="6"
-                android:layout_marginTop="50dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp">
 
-            </ImageView>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:weightSum="10">
 
-            <TextView
-                android:id="@+id/BookDetailsTitle"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
+                <ImageView
+                    android:id="@+id/BookDetailsCover"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="6"
+                    android:layout_marginTop="50dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp">
+
+                </ImageView>
+
+                <TextView
+                    android:id="@+id/BookDetailsTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1">
+
+                </TextView>
+
+                <TextView
+                    android:id="@+id/BookDetailsAuthors"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1">
+
+                </TextView>
+
+                <TextView
+                    android:id="@+id/BookDetailsPublishDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1">
+
+                </TextView>
+
+                <TextView
+                    android:id="@+id/BookDetailsPublisher"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1">
+
+                </TextView>
+
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1">
 
-            </TextView>
+                <TextView
+                    android:id="@+id/BookDetailsDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/BookDetailsAuthors"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1">
+                </TextView>
 
-            </TextView>
+            </LinearLayout>
 
-            <TextView
-                android:id="@+id/BookDetailsPublishDate"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1">
 
-            </TextView>
-
-            <TextView
-                android:id="@+id/BookDetailsPublisher"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1">
-
-            </TextView>
 
         </LinearLayout>
 
-
-
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
-
-            <TextView
-                android:id="@+id/BookDetailsDescription"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-            </TextView>
-
-        </LinearLayout>
-
-
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="3"
-        android:weightSum="16"
-        android:orientation="horizontal">
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="4">
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="12"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="3"
+            android:weightSum="16"
             android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/BookDetailsReadButton"
+            <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="3"
-                android:layout_marginRight="5dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="25dp"
-                android:text="Read"
-                android:textSize="8dp"
+                android:layout_weight="4">
 
-                android:onClick="BookDetailsReadAction">
+            </LinearLayout>
 
-            </Button>
 
-            <Button
-                android:id="@+id/BookDetailsToReadButton"
+            <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="3"
-                android:layout_marginRight="5dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="25dp"
-                android:text="To Read"
-                android:textSize="8dp"
+                android:layout_weight="12"
+                android:orientation="horizontal">
 
-                android:onClick="BookDetailsToReadAction">
+                <Button
+                    android:id="@+id/BookDetailsReadButton"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="15dp"
+                    android:text="Read"
+                    android:textSize="8dp"
 
-            </Button>
+                    android:onClick="BookDetailsReadAction">
 
-            <Button
-                android:id="@+id/BookDetailsShareButton"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="3"
-                android:layout_marginRight="5dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="25dp"
-                android:text="Share"
-                android:textSize="8dp"
+                </Button>
 
-                android:onClick="BookDetailsShareAction">
+                <Button
+                    android:id="@+id/BookDetailsToReadButton"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="15dp"
+                    android:text="To Read"
+                    android:textSize="8dp"
 
-            </Button>
+                    android:onClick="BookDetailsToReadAction">
 
-            <Button
-                android:id="@+id/BookDetailsBuyButton"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="3"
-                android:layout_marginRight="5dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="25dp"
-                android:text="Buy"
-                android:textSize="8dp"
+                </Button>
 
-                android:onClick="BookDetailsBuyAction">
+                <Button
+                    android:id="@+id/BookDetailsShareButton"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="15dp"
+                    android:text="Share"
+                    android:textSize="8dp"
 
-            </Button>
+                    android:onClick="BookDetailsShareAction">
+
+                </Button>
+
+                <Button
+                    android:id="@+id/BookDetailsBuyButton"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="15dp"
+                    android:text="Buy"
+                    android:textSize="8dp"
+
+                    android:onClick="BookDetailsBuyAction">
+
+                </Button>
+
+            </LinearLayout>
+
+
 
         </LinearLayout>
 
@@ -178,5 +195,4 @@
     </LinearLayout>
 
 
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

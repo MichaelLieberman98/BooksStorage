@@ -89,6 +89,8 @@ public class MainActivity extends AppCompatActivity {
     public void getUserPreferences(){
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
+
+
         mainBookImage = sharedPreferences.getString("main_image", "book1");
         userName = sharedPreferences.getString("user_name", "User");
         contact = sharedPreferences.getString("contact", "3478512548");

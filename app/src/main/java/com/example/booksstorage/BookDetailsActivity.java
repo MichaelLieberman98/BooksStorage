@@ -1,13 +1,16 @@
 package com.example.booksstorage;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -30,7 +33,12 @@ public class BookDetailsActivity extends AppCompatActivity {
     BookDetailsBuyButton
 
      */
+    private ConstraintLayout mainLayout;
+    private LinearLayout containerLayout;
+
     ImageView BookDetailsCover;
+    private int orientation;
+    private SharedPreferences sharedPreferences;
 
     TextView BookDetailsTitle;
     TextView BookDetailsAuthors;
@@ -48,6 +56,21 @@ public class BookDetailsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_details);
+        this.mainLayout = (ConstraintLayout) findViewById(R.id.bookDetailsMainLayout);
+        this.containerLayout = (LinearLayout) findViewById(R.id.bookDetailsContainerLayout);
+
+        this.BookDetailsCover = (ImageView) findViewById(R.id.BookDetailsCover);
+        this.BookDetailsTitle = (TextView) findViewById(R.id.BookDetailsTitle);
+        this.BookDetailsAuthors = (TextView) findViewById(R.id.BookDetailsAuthors);
+        this.BookDetailsPublishDate = (TextView) findViewById(R.id.BookDetailsPublishDate);
+        this.BookDetailsPublisher = (TextView) findViewById(R.id.BookDetailsPublisher);
+        this.BookDetailsDescription = (TextView) findViewById(R.id.BookDetailsDescription);
+
+        this.BookDetailsReadButton = (Button) findViewById(R.id.BookDetailsReadButton);
+        this.BookDetailsToReadButton = (Button) findViewById(R.id.BookDetailsToReadButton);
+        this.BookDetailsShareButton = (Button) findViewById(R.id.BookDetailsShareButton);
+        this.BookDetailsBuyButton = (Button) findViewById(R.id.BookDetailsBuyButton);
+
 
         System.out.println("activity stack");
         System.out.println(Data.getInstance().getActivityStack().toString().replaceAll("\\[", "").replaceAll("]", ""));
@@ -56,16 +79,23 @@ public class BookDetailsActivity extends AppCompatActivity {
     }
 
     public void loadContent(){
-        this.BookDetailsCover = (ImageView) findViewById(R.id.BookDetailsCover);
+
+        boolean lightDark = sharedPreferences.getBoolean("lightdark", true);
+        if (lightDark){
+            this.mainLayout.setBackgroundColor(getResources().getColor(R.color.light_mode_main_background));
+            this.containerLayout.setBackgroundColor(getResources().getColor(R.color.light_mode_container_background));
+        } else {
+            this.mainLayout.setBackgroundColor(getResources().getColor(R.color.dark_mode_main_background));
+            this.containerLayout.setBackgroundColor(getResources().getColor(R.color.dark_mode_container_background));
+        }
+
+
         this.BookDetailsCover.setImageBitmap(Data.getInstance().getClickedBook().getCover());
 
-        this.BookDetailsTitle = (TextView) findViewById(R.id.BookDetailsTitle);
         this.BookDetailsTitle.setText(Data.getInstance().getClickedBook().getTitle());
 
-        this.BookDetailsAuthors = (TextView) findViewById(R.id.BookDetailsAuthors);
         this.BookDetailsAuthors.setText(Data.getInstance().getClickedBook().getAuthors().get(0));
 
-        this.BookDetailsPublishDate = (TextView) findViewById(R.id.BookDetailsPublishDate);
         System.out.println(Data.getInstance().getClickedBook().getPublishDate().getDay());
         System.out.println(Data.getInstance().getClickedBook().getPublishDate().getMonth());
         System.out.println(Data.getInstance().getClickedBook().getPublishDate().getYear());
@@ -83,16 +113,9 @@ public class BookDetailsActivity extends AppCompatActivity {
 
         this.BookDetailsPublishDate.setText(Data.getInstance().getClickedBook().getPublishDate().numsDate()); //MAKE DATE CLASS AND MAKE THIS LOOK BETTER
 
-        this.BookDetailsPublisher = (TextView) findViewById(R.id.BookDetailsPublisher);
         this.BookDetailsPublisher.setText(Data.getInstance().getClickedBook().getPublisher());
 
-        this.BookDetailsDescription = (TextView) findViewById(R.id.BookDetailsDescription);
         this.BookDetailsDescription.setText(Data.getInstance().getClickedBook().getDescription());
-
-        this.BookDetailsReadButton = (Button) findViewById(R.id.BookDetailsReadButton);
-        this.BookDetailsToReadButton = (Button) findViewById(R.id.BookDetailsToReadButton);
-        this.BookDetailsShareButton = (Button) findViewById(R.id.BookDetailsShareButton);
-        this.BookDetailsBuyButton = (Button) findViewById(R.id.BookDetailsBuyButton);
 
 
         loadButtons();

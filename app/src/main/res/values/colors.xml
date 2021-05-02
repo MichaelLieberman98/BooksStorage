@@ -9,12 +9,24 @@
     <color name="white">#FFFFFFFF</color>
 
 
-    <color name="allActivityBackgrounds">#FFebebeb</color>
+    <color name="light_mode_main_background">#edf1f5</color>
+    <color name="light_mode_container_background">#fafafa</color>
+    <color name="dark_mode_main_background">#000000</color>
+    <color name="dark_mode_container_background">#222222</color>
 
-    <color name="allRecyclerViewItemBackgrounds">#ffffff</color>
+    <color name="greenButton">#ff13ce66</color>
+    <color name="redButton">#fff95f62</color>
+    <color name="blueButton">#ff2693ff</color>
+
+
+<!--    <color name="allActivityBackgrounds">#FFebebeb</color>-->
+
+<!--    <color name="allRecyclerViewItemBackgrounds">#ffffff</color>-->
 
     <color name="allRecyclerViewMoreButtonColors">#13ce66</color>
 
     <color name="allMoreWords">#FF000000</color>
+
+
 <!--    <color name="disabledButton">#FF696969</color>-->
 </resources>

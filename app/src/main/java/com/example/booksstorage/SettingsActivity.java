@@ -17,7 +17,7 @@ public class SettingsActivity extends AppCompatActivity {
         if (savedInstanceState == null) {
             getSupportFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.settings, new SettingsFragment())
+                    .replace(R.id.settingsContainer, new SettingsFragment())
                     .commit();
         }
         ActionBar actionBar = getSupportActionBar();

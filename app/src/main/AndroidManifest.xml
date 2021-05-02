@@ -15,7 +15,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BooksStorage"
         android:usesCleartextTraffic="true">
-        <activity android:name=".SettingsLayoutsActivity"></activity>
         <activity android:name=".SettingsActivity" />
         <activity android:name=".APIResultsActivity" />
         <activity android:name=".ToReadActivity" />
