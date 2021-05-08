@@ -2,13 +2,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <PreferenceCategory app:title="@string/bg_settings_header">
-
-
         <SwitchPreference
             android:defaultValue="false"
             android:key="lightdark"
             android:title="Dark Mode" />
 
+<!--        https://developer.android.com/reference/android/preference/ListPreference-->
         <ListPreference
             app:defaultValue="book1"
             app:entries="@array/main_entries"
@@ -16,25 +15,29 @@
             app:key="main_image"
             app:title="@string/main_bg_title"
             app:useSimpleSummaryProvider="true" />
+    </PreferenceCategory>
 
+    <PreferenceCategory app:title="Books Ordering">
+        <ListPreference
+            app:defaultValue="natural"
+            app:entries="@array/sorting_entries"
+            app:entryValues="@array/sorting_values"
+            app:key="sorting_choice"
+            app:title="Sorting Order"
+            app:useSimpleSummaryProvider="true" />
     </PreferenceCategory>
 
     <PreferenceCategory app:title="@string/favorite_team_header">
-
         <EditTextPreference
             app:key="user_name"
             app:title="@string/favorite_team"
             app:useSimpleSummaryProvider="true" />
-
     </PreferenceCategory>
 
     <PreferenceCategory app:title="@string/contact_header">
-
         <EditTextPreference
             app:key="contact"
             app:title="Contact"
             app:useSimpleSummaryProvider="true" />
-
     </PreferenceCategory>
-
 </PreferenceScreen>

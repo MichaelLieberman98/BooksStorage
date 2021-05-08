@@ -25,10 +25,8 @@ public class ToReadActivityRVadapter extends RecyclerView.Adapter<ToReadActivity
     @NonNull
     @Override
     public ToReadActivityRVadapter.ToReadActivityRVHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-//        System.out.println("meal item size = " + Data.getInstance().getMealItems().size());
         LayoutInflater inflater = LayoutInflater.from(this.ct);
         View v = inflater.inflate(R.layout.to_read_activity_rv_item, parent, false);
-
         return new ToReadActivityRVadapter.ToReadActivityRVHolder(v, ct);
     }
 
@@ -83,8 +81,8 @@ public class ToReadActivityRVadapter extends RecyclerView.Adapter<ToReadActivity
     public void onBindViewHolder(@NonNull ToReadActivityRVadapter.ToReadActivityRVHolder holder, int position){
         holder.ToReadActivityCover.setImageBitmap(Data.getInstance().getBooksToRead().get(position).getCover());
 
-        String redString= "<font color="+ ct.getResources().getColor(R.color.button_text_color)+">More ></font>"; //
-        String blackString = "<font color="+ ct.getResources().getColor(R.color.button_text_color)+">"+position+"</font>";
+        String redString= "<font color="+ ct.getResources().getColor(R.color.button_text_color)+">More ></font>";
+        String blackString = "<font color="+ ct.getResources().getColor(R.color.blueButton)+">"+position+"</font>";
 
         holder.ToReadActivityMore.setText(Html.fromHtml(redString + blackString));
     }

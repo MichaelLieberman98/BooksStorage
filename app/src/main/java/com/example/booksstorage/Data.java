@@ -1,12 +1,8 @@
 package com.example.booksstorage;
-import static java.util.Map.entry;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Map;
 import java.util.Stack;
 
 public class Data {
@@ -33,8 +29,6 @@ public class Data {
         DETAILS
     }
 
-
-
     private Stack<Activity> activityStack = new Stack<>();
     public Stack<Activity> getActivityStack() {
         return this.activityStack;
@@ -42,8 +36,6 @@ public class Data {
     public void setActivityStack(Stack<Activity> activityStack) {
         this.activityStack = activityStack;
     }
-
-
 
     public String bookSearchURL = "https://www.googleapis.com/books/v1/volumes?q=";
 
@@ -87,9 +79,6 @@ public class Data {
         System.out.println();
     }
 
-
-
-
     public void setBooksToRead(ArrayList<Book> booksToRead) {
         this.booksToRead = booksToRead;
     }
@@ -99,7 +88,6 @@ public class Data {
     public void setBooksAlreadyRead(ArrayList<Book> booksAlreadyRead) {
         this.booksAlreadyRead = booksAlreadyRead;
     }
-
 
     private Book clickedBook = new Book();
 
@@ -111,13 +99,35 @@ public class Data {
         this.clickedBook = clickedBook;
     }
 
+    public void sortBooks(ArrayList<Book> list, String sortType){
+        switch (sortType){
+            case "natural":
+                break;
+            case "title":
+                Data.getInstance().sortBooksAlphabeticallyByTitle(list);
+                break;
+            case "date":
+                Data.getInstance().sortBooksByPublishDate(list);
+                break;
+            default:
+                break;
+        }
+    }
 
-
-    public void sortBooksAlphabetically(ArrayList<Book> books){
+    public void sortBooksAlphabeticallyByTitle(ArrayList<Book> books){
         Collections.sort(books, new Comparator<Book>() {
             @Override
             public int compare(Book o1, Book o2) {
                 return o1.getTitle().compareTo(o2.getTitle());
+            }
+        });
+    }
+
+    public void sortBooksByPublishDate(ArrayList<Book> books) {
+        Collections.sort(books, new Comparator<Book>() {
+            @Override
+            public int compare(Book o1, Book o2) {
+                return o1.getPublishDate().compareTo(o2.getPublishDate());
             }
         });
     }

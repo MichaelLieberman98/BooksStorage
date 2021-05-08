@@ -4,90 +4,62 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
-import android.util.Log;
-import android.widget.Button;
-import android.widget.TextView;
-
-
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedInputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.lang.ref.WeakReference;
-import java.lang.reflect.Array;
 import java.net.URL;
-import java.net.URLConnection;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.concurrent.ExecutionException;
 
 public class FetchBook extends AsyncTask<String, Void, String> {
 
-//    private static final String TAG = "FetchBook";
-//    private WeakReference<TextView> titleText;
-//    private WeakReference<TextView> authorText;
-
     Context ct;
     FetchBook(Context ct){
-//        this.titleText = new WeakReference<>(titleText);
-//        this.authorText = new WeakReference<>(authorText);
         this.ct = ct;
     }
 
     @Override
     protected String doInBackground(String[] strings) {
-
-//        Log.d(TAG, "inside method doInBackground");
-
-//        System.out.println("strings[0] = " + strings[0]);
+        System.out.println("strings[0] = " + strings[0]);
         String s = NetworkUtils.getBookInfo(strings[0]);
-
-//        Log.d(TAG, "STRING RETRIVED "+s);
-//        System.out.println("STRING RETRIEVED " + s);
+        System.out.println("STRING RETRIEVED " + s);
         return s;
     }
 
     @Override
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
-//        Log.d(TAG, "inside onPostExecute");
 
         try {
-//            System.out.println("after try, s length = " + s.length());
             JSONObject jsonObject = new JSONObject(s);
             JSONArray itemsArray = jsonObject.getJSONArray("items");
-
-//            System.out.println(jsonObject.toString(4));
-
-//            System.out.println("items size = " + itemsArray.length());
 
             for (int i = 0; i < itemsArray.length(); i++){
                 JSONObject JSONbook = (JSONObject) itemsArray.get(i);
 
 
+                String url;
+                Bitmap bitmap = null;
+                if (JSONbook.getJSONObject("volumeInfo").has("imageLinks")){
+                    url = JSONbook.getJSONObject("volumeInfo").getJSONObject("imageLinks").getString("thumbnail");
+                    String pre = url.substring(0, 4);
+                    String post = url.substring(4, url.length());
 
-
-                String url = JSONbook.getJSONObject("volumeInfo").getJSONObject("imageLinks").getString("thumbnail");
-                String pre = url.substring(0, 4);
-                String post = url.substring(4, url.length());
-
-                Bitmap bm = null;
-//                System.out.println(pre+"s"+post);
-                try {  //TEMP
-                    bm = new GetImageFromURL().execute(pre+"s"+post).get();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+                System.out.println(pre+"s"+post);
+                    try {
+                        bitmap = new GetImageFromURL().execute(pre+"s"+post).get();
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    url = null;
+                    bitmap = null;
                 }
-
 
                 String description = "";
                 if (JSONbook.getJSONObject("volumeInfo").has("description")){
@@ -100,7 +72,7 @@ public class FetchBook extends AsyncTask<String, Void, String> {
 
                 //https://stackoverflow.com/questions/15871309/convert-jsonarray-to-string-array/57092365
                 JSONArray JSONauthors = JSONbook.getJSONObject("volumeInfo").getJSONArray("authors");
-//                System.out.println("json authors size = " + JSONauthors.length());
+                System.out.println("json authors size = " + JSONauthors.length());
                 ArrayList<String> authors = new ArrayList<>();
 
                 for (int j = 0; j < JSONauthors.length(); j++){
@@ -145,9 +117,9 @@ public class FetchBook extends AsyncTask<String, Void, String> {
                         break;
                     default:
                         date = new Date(
-                                2000,
-                                1,
-                                1
+                                -2000,
+                                -1,
+                                -1
                         );
                 }
 
@@ -163,7 +135,7 @@ public class FetchBook extends AsyncTask<String, Void, String> {
 
 
 
-                String buyLink = ""; //should change later depending on group's preferences
+                String buyLink = "";
 
                 if (JSONbook.getJSONObject("volumeInfo").has("previewLink")){
                     buyLink = JSONbook.getJSONObject("volumeInfo").getString("previewLink");
@@ -181,13 +153,10 @@ public class FetchBook extends AsyncTask<String, Void, String> {
                     buyLink = JSONbook.getJSONObject("accessInfo").getString("webReaderLink");
                 }
 
-
-//                System.out.println("buy link = " + (JSONbook.getJSONObject("saleInfo").has("buyLink")));
-
                 Book newBook = new Book(
                         JSONbook.getString("id"),
-                        bm,
-                        JSONbook.getJSONObject("volumeInfo").getJSONObject("imageLinks").getString("thumbnail"),
+                        bitmap,
+                        url,
                         JSONbook.getJSONObject("volumeInfo").getString("title"),
                         description,
                         authors,
@@ -198,15 +167,9 @@ public class FetchBook extends AsyncTask<String, Void, String> {
                         Data.BookReadStatus.UNKNOWN
                 );
 
-//                System.out.println("just created new book, authors length = " + newBook.getAuthors().size());
-
                 Data.getInstance().getBooksFromAPI().add(newBook);
-
-//                System.out.println(Data.getInstance().getBooksFromAPI().size());
             }
         }catch (JSONException e){
-//            titleText.get().setText(R.string.exception_results);
-//            authorText.get().setText(R.string.exception_results);
             e.printStackTrace();
         }
 
@@ -231,7 +194,7 @@ public class FetchBook extends AsyncTask<String, Void, String> {
                 b = BitmapFactory.decodeStream(url.openConnection().getInputStream());
                 this.bm = b;
             } catch(IOException e) {
-//                System.out.println(e);
+                System.out.println(e);
             }
             return b;
         }

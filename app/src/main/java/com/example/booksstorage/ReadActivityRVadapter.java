@@ -26,7 +26,6 @@ public class ReadActivityRVadapter extends RecyclerView.Adapter<ReadActivityRVad
     @NonNull
     @Override
     public ReadActivityRVadapter.ReadActivityRVHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-//        System.out.println("meal item size = " + Data.getInstance().getMealItems().size());
         LayoutInflater inflater = LayoutInflater.from(this.ct);
         View v = inflater.inflate(R.layout.read_activity_rv_item, parent, false);
 
@@ -66,7 +65,7 @@ public class ReadActivityRVadapter extends RecyclerView.Adapter<ReadActivityRVad
 
             Button b = (Button) v;
             Data.getInstance().setClickedBook(
-                    Data.getInstance().getBooksAlreadyRead().get(         //figure out way to create association between button and its book from API
+                    Data.getInstance().getBooksAlreadyRead().get(         //figure out way to create association between button and its book
                             Integer.parseInt(
                                     b.getText().toString().substring(
                                             b.getText().toString().indexOf(">")+1
@@ -85,7 +84,7 @@ public class ReadActivityRVadapter extends RecyclerView.Adapter<ReadActivityRVad
         holder.ReadActivityCover.setImageBitmap(Data.getInstance().getBooksAlreadyRead().get(position).getCover());
 
         String redString= "<font color="+ ct.getResources().getColor(R.color.button_text_color)+">More ></font>"; //
-        String blackString = "<font color="+ ct.getResources().getColor(R.color.button_text_color)+">"+position+"</font>";
+        String blackString = "<font color="+ ct.getResources().getColor(R.color.blueButton)+">"+position+"</font>";
         holder.ReadActivityMore.setText(Html.fromHtml(redString + blackString));
     }
 

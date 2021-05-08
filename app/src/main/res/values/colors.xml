@@ -19,17 +19,9 @@
     <color name="redButton">#fff95f62</color>
     <color name="blueButton">#ff2693ff</color>
 
-
-<!--    <color name="allActivityBackgrounds">#FFebebeb</color>-->
-
-<!--    <color name="allRecyclerViewItemBackgrounds">#ffffff</color>-->
-
     <color name="allRecyclerViewMoreButtonColors">#13ce66</color>
 
     <color name="allMoreWords">#FF000000</color>
     <color name="textColor">#000000</color>
     <color name="button_text_color">#FFFFFF</color>
-
-
-    <!--    <color name="disabledButton">#FF696969</color>-->
 </resources>

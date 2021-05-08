@@ -1,8 +1,6 @@
 package com.example.booksstorage;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
@@ -10,23 +8,22 @@ import android.widget.FrameLayout;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
-import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceManager;
 
 public class SettingsActivity extends AppCompatActivity {
-
     FrameLayout settingsContainer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+
+        SettingsFragment fragment = new SettingsFragment();
         if (savedInstanceState == null) {
             getSupportFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.settingsContainer, new SettingsFragment())
+                    .replace(R.id.settingsContainer, fragment)
                     .commit();
         }
         ActionBar actionBar = getSupportActionBar();
@@ -40,13 +37,12 @@ public class SettingsActivity extends AppCompatActivity {
         boolean lightDark = sharedPreferences.getBoolean("lightdark", true);
         if (lightDark){
             this.settingsContainer.setBackgroundColor(getResources().getColor(R.color.dark_mode_main_background));
-
         } else {
             this.settingsContainer.setBackgroundColor(getResources().getColor(R.color.light_mode_main_background));
         }
     }
 
-    public static class SettingsFragment extends PreferenceFragmentCompat {
+    public static class SettingsFragment extends PreferenceFragmentCompat{
         @Override
         public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
             setPreferencesFromResource(R.xml.root_preferences, rootKey);
@@ -62,5 +58,4 @@ public class SettingsActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
 }

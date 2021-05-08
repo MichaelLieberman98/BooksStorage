@@ -1,15 +1,9 @@
 package com.example.booksstorage;
-//tempAPIAdapter
-//RecyclerView.Adapter<tempAPIAdapter.APIBookItemHolder>
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
-import android.media.Image;
-import android.provider.ContactsContract;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,24 +14,19 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.preference.PreferenceManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-import java.util.Map;
 
-public class tempAPIAdapter extends RecyclerView.Adapter<tempAPIAdapter.APIBookItemHolder> { //this adapter is for the home screen (derived from foods user has already chosen)
+public class tempAPIAdapter extends RecyclerView.Adapter<tempAPIAdapter.APIBookItemHolder> {
     private Context ct;
     public tempAPIAdapter(Context ct){
-//        System.out.println("MealItemAdapter constructor meal item size = " + Data.getInstance().getMealItems().size());
         this.ct = ct;
     }
     @NonNull
     @Override
     public tempAPIAdapter.APIBookItemHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-//        System.out.println("meal item size = " + Data.getInstance().getMealItems().size());
         LayoutInflater inflater = LayoutInflater.from(ct);
         View v = inflater.inflate(R.layout.temp_api_food_holder_xml, parent, false);
 
@@ -100,8 +89,7 @@ public class tempAPIAdapter extends RecyclerView.Adapter<tempAPIAdapter.APIBookI
                             )
                     )
             );
-//            System.out.println("IN ON CLICK, ENGLISH INGREDIENTS SIZE = " + Data.getInstance().getChosenMealItem().getIngredients().size());
-//            System.out.println("IN ON CLICK, SPANISH INGREDIENTS SIZE = " + Data.getInstance().getChosenMealItem().getSpanishIngredients().size());
+
             Intent show = new Intent(this.ct, BookDetailsActivity.class);
             ct.startActivity(show);
         }
@@ -109,12 +97,31 @@ public class tempAPIAdapter extends RecyclerView.Adapter<tempAPIAdapter.APIBookI
 
     @Override
     public void onBindViewHolder(@NonNull tempAPIAdapter.APIBookItemHolder holder, int position) {
-//        System.out.println(Data.getInstance().getBooksFromAPI().get(position).getCover());
         holder.tempAPIcover.setImageBitmap(Data.getInstance().getBooksFromAPI().get(position).getCover());
 
         holder.tempAPItitle.setText(Data.getInstance().getBooksFromAPI().get(position).getTitle());
-//        System.out.println("authors size = " + Data.getInstance().getBooksFromAPI().get(position).getAuthors().size());
-        holder.tempAPIauthors.setText(Data.getInstance().getBooksFromAPI().get(position).getAuthors().get(0)); //eventually change this to a loop over of all authors
+
+        ArrayList<String> authors = Data.getInstance().getBooksFromAPI().get(position).getAuthors();
+
+        String authorsAsString = "";
+        switch (authors.size()){
+            case 0:
+                authorsAsString = "no authors available";
+                break;
+            case 1:
+                authorsAsString = authors.get(0);
+                break;
+            case 2:
+                authorsAsString = authors.get(0) + "\n" + authors.get(1);
+                break;
+            default:
+                for (int i = 0; i < authors.size()-1; i++){
+                    authorsAsString += (authors.get(i) + "\n");
+                }
+                authorsAsString += authors.get(authors.size()-1);
+                break;
+        }
+        holder.tempAPIauthors.setText(authorsAsString);
 
 
         if (Data.getInstance().getBooksFromAPI().get(position).getPublishDate().getDay() == -1 &&
@@ -126,19 +133,20 @@ public class tempAPIAdapter extends RecyclerView.Adapter<tempAPIAdapter.APIBookI
             holder.tempAPIpublishDate.setText(Data.getInstance().getBooksFromAPI().get(position).getPublishDate().numsDate());
         }
 
-
-
-
-
         holder.tempAPIpublishers.setText(Data.getInstance().getBooksFromAPI().get(position).getPublisher());
 
-        String redString= "<font color="+ ct.getResources().getColor(R.color.button_text_color)+">More ></font>"; //
-        String blackString = "<font color="+ ct.getResources().getColor(R.color.button_text_color)+">"+position+"</font>";
+        String redString= "<font color="+ ct.getResources().getColor(R.color.button_text_color)+">More ></font>";
+        String blackString = "<font color="+ ct.getResources().getColor(R.color.blueButton)+">"+position+"</font>";
 
         holder.tempAPImoreButton.setText(Html.fromHtml(redString + blackString)); //we aren't really changing the text here are we...
 
         //https://stackoverflow.com/questions/45998111/displaying-buttons-text-with-two-different-colors
 
+    }
+
+    //DYNAMIC ADDING
+    public void addItemToList(Book item){
+        Data.getInstance().getBooksFromAPI().add(item);
     }
 
     @Override

@@ -74,9 +74,5 @@
             android:text="More >"
             android:textSize="15dp"
             android:textStyle="bold"></Button>
-
-
     </RelativeLayout>
-
-
 </LinearLayout>

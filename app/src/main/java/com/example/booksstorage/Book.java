@@ -3,8 +3,6 @@ package com.example.booksstorage;
 import android.graphics.Bitmap;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-
 
 import java.util.HashMap; //languages
 

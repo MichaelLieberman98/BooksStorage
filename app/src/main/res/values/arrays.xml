@@ -13,4 +13,17 @@
         <item>book3</item>
         <item>book4</item>
     </string-array>
+
+    <!-- Sorting Preference -->
+    <string-array name="sorting_entries">
+        <item>Natural</item>
+        <item>By Book Title</item>
+        <item>By Publish Date</item>
+    </string-array>
+
+    <string-array name="sorting_values">
+        <item>natural</item>
+        <item>title</item>
+        <item>date</item>
+    </string-array>
 </resources>

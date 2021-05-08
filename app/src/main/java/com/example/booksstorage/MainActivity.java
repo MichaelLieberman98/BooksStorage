@@ -25,13 +25,6 @@ import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends AppCompatActivity {
-    /*
-    searchField
-    searchButton
-    enterReadActivityButton
-    enterToReadActivityButton
-     */
-
     LinearLayout mainBG;
     EditText searchField;
     ImageView bookImage;
@@ -44,12 +37,11 @@ public class MainActivity extends AppCompatActivity {
     String contact = "tel:3478512548";
 
 
-
-    //MP6
     public static final String TAG = "MainActivity";
     protected static final String ACTION_CUSTOM_BROADCAST = "com.example.NEW_BOOK_NOW";
     private BookStorageReceiver receiver;
-    /////
+
+    private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,14 +62,11 @@ public class MainActivity extends AppCompatActivity {
         setBookImage(mainBookImage);
         tvuserName.setText("Hello " + userName + " Time To Read Some Books!");
 
-        //MP6
+
         this.receiver = new BookStorageReceiver();
-        registerReceiver(this.receiver, addIntentFilters()); //when not using LocalBroadcastManager
-//        LocalBroadcastManager.getInstance(this).registerReceiver(receiver, new IntentFilter(ACTION_CUSTOM_BROADCAST));
-        /////
+        registerReceiver(this.receiver, addIntentFilters());
     }
 
-    //MP6
     protected IntentFilter addIntentFilters(){
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(ACTION_CUSTOM_BROADCAST);
@@ -88,7 +77,6 @@ public class MainActivity extends AppCompatActivity {
         intentFilter.addAction(Intent.ACTION_AIRPLANE_MODE_CHANGED);
         return intentFilter;
     }
-    /////
 
     public void getUserPreferences(){
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -108,6 +96,9 @@ public class MainActivity extends AppCompatActivity {
             this.searchField.setTextColor(getResources().getColor(R.color.textColor));
             this.tvuserName.setTextColor(getResources().getColor(R.color.textColor));
         }
+
+        Data.getInstance().sortBooks(Data.getInstance().getBooksToRead(), sharedPreferences.getString("sorting_choice", "natural"));
+        Data.getInstance().sortBooks(Data.getInstance().getBooksAlreadyRead(), sharedPreferences.getString("sorting_choice", "natural"));
     }
 
     public void setBookImage(String mainBookImage) {
@@ -135,6 +126,12 @@ public class MainActivity extends AppCompatActivity {
         getUserPreferences();
         setBookImage(mainBookImage);
         tvuserName.setText("Hello " + userName + " Time To Read Some Books!");
+    }
+
+    @Override
+    protected void onDestroy(){
+        this.unregisterReceiver(receiver);
+        super.onDestroy();
     }
 
     public void searchAction(View v){

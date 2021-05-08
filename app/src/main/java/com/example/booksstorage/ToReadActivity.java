@@ -36,14 +36,12 @@ public class ToReadActivity extends AppCompatActivity {
         if (lightDark){
             this.mainLayout.setBackgroundColor(getResources().getColor(R.color.dark_mode_main_background));
             this.ToReadActivityRV.setBackgroundColor(getResources().getColor(R.color.dark_mode_main_background));
-
         } else {
             this.mainLayout.setBackgroundColor(getResources().getColor(R.color.light_mode_main_background));
             this.ToReadActivityRV.setBackgroundColor(getResources().getColor(R.color.light_mode_main_background));
         }
 
         this.ToReadActivityRV.setAdapter(new ToReadActivityRVadapter(this));
-
 
         this.orientation = getResources().getConfiguration().orientation;
         if (orientation == Configuration.ORIENTATION_LANDSCAPE){

@@ -10,15 +10,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.widget.RelativeLayout;
 
 import java.util.concurrent.ExecutionException;
 
 public class APIResultsActivity extends AppCompatActivity {
     private ConstraintLayout mainLayout;
     private RecyclerView temprv;
+    private tempAPIAdapter adapter;
     private int orientation;
     private SharedPreferences sharedPreferences;
 
@@ -53,7 +52,9 @@ public class APIResultsActivity extends AppCompatActivity {
             this.temprv.setBackgroundColor(getResources().getColor(R.color.light_mode_main_background));
         }
 
-        this.temprv.setAdapter(new tempAPIAdapter(this));
+        this.adapter = new tempAPIAdapter(this);
+//        adapter.notifyDataSetChanged(); //dynamic adding
+        this.temprv.setAdapter(adapter);
 
         this.orientation = getResources().getConfiguration().orientation;
 

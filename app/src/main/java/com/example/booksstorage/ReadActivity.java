@@ -11,11 +11,6 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 
-import com.example.booksstorage.Data;
-import com.example.booksstorage.MainActivity;
-import com.example.booksstorage.R;
-import com.example.booksstorage.ReadActivityRVadapter;
-
 public class ReadActivity extends AppCompatActivity {
     private ConstraintLayout mainLayout;
     private RecyclerView ReadActivityRV;
@@ -36,7 +31,6 @@ public class ReadActivity extends AppCompatActivity {
     }
 
     public void loadContent(){
-
         boolean lightDark = sharedPeferences.getBoolean("lightdark", true);
         if (lightDark){
             this.mainLayout.setBackgroundColor(getResources().getColor(R.color.dark_mode_main_background));

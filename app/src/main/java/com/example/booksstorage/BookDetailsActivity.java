@@ -1,12 +1,10 @@
 package com.example.booksstorage;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.preference.PreferenceManager;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -14,28 +12,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.Switch;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 public class BookDetailsActivity extends AppCompatActivity {
-    /*
-    BookDetailsCover
-
-    BookDetailsTitle
-    BookDetailsAuthors
-    BookDetailsPublishDate
-    BookDetailsPublisher
-
-    BookDetailsDescription
-
-    BookDetailsReadButton
-    BookDetailsToReadButton
-    BookDetailsShareButton
-    BookDetailsBuyButton
-
-     */
     private LinearLayout mainLayout;
     private RelativeLayout detailsContainer;
 
@@ -99,7 +78,6 @@ public class BookDetailsActivity extends AppCompatActivity {
             this.detailsContainer.setBackground(getResources().getDrawable(R.drawable.border_light_mode));
         }
 
-
         this.BookDetailsCover.setImageBitmap(Data.getInstance().getClickedBook().getCover());
 
         this.BookDetailsTitle.setText(Data.getInstance().getClickedBook().getTitle());
@@ -120,49 +98,36 @@ public class BookDetailsActivity extends AppCompatActivity {
             this.BookDetailsPublishDate.setText(Data.getInstance().getClickedBook().getPublishDate().numsDate());
         }
 
-
-        this.BookDetailsPublishDate.setText(Data.getInstance().getClickedBook().getPublishDate().numsDate()); //MAKE DATE CLASS AND MAKE THIS LOOK BETTER
+        this.BookDetailsPublishDate.setText(Data.getInstance().getClickedBook().getPublishDate().numsDate());
 
         this.BookDetailsPublisher.setText(Data.getInstance().getClickedBook().getPublisher());
 
         this.BookDetailsDescription.setText(Data.getInstance().getClickedBook().getDescription());
 
-
         loadButtons();
     }
 
     public void loadButtons(){
-//        System.out.println(Data.getInstance().getClickedBook().getTitle() + " status = " + Data.getInstance().getClickedBook().getStatus());
         switch(Data.getInstance().getClickedBook().getStatus()){ //https://stackoverflow.com/questions/5019857/how-to-set-a-button-gray-and-unclickable
             case UNKNOWN:
-
                 break;
             case TOREAD:
                 this.BookDetailsToReadButton.setEnabled(false);
-//                this.BookDetailsToReadButton.setBackgroundColor(getResources().getColor(R.color.disabledButton)); //https://stackoverflow.com/questions/5271387/how-can-i-get-color-int-from-color-resource
                 break;
             case READ:
                 this.BookDetailsReadButton.setEnabled(false);
                 this.BookDetailsToReadButton.setEnabled(false); //book in "read" shouldn't be able to return to "to read"
-//                this.BookDetailsReadButton.setBackgroundColor(getResources().getColor(R.color.disabledButton));
                 break;
         }
     }
 
-
-
-
-
-
-
     public void BookDetailsReadAction(View v){
-
         switch(Data.getInstance().getClickedBook().getStatus()){
             case UNKNOWN:
                 Data.getInstance().getClickedBook().setStatus(Data.BookReadStatus.READ);
                 Data.getInstance().getBooksAlreadyRead().add(Data.getInstance().getClickedBook());
 
-                Data.getInstance().sortBooksAlphabetically(Data.getInstance().getBooksAlreadyRead()); //SORTING
+                Data.getInstance().sortBooks(Data.getInstance().getBooksAlreadyRead(), this.sharedPreferences.getString("sorting_choice", "natural"));
 
                 loadButtons();
                 break;
@@ -170,7 +135,7 @@ public class BookDetailsActivity extends AppCompatActivity {
                 Data.getInstance().getClickedBook().setStatus(Data.BookReadStatus.READ);
                 Data.getInstance().getBooksAlreadyRead().add(Data.getInstance().getClickedBook());
 
-                Data.getInstance().sortBooksAlphabetically(Data.getInstance().getBooksAlreadyRead()); //SORTING
+                Data.getInstance().sortBooks(Data.getInstance().getBooksAlreadyRead(), this.sharedPreferences.getString("sorting_choice", "natural"));
 
                 loadButtons();
 
@@ -183,22 +148,7 @@ public class BookDetailsActivity extends AppCompatActivity {
             case READ:
                 break;
         }
-//        Data.getInstance().getClickedBook().setStatus(Data.BookReadStatus.READ); //set the current books status to "user already read this"
-//        Data.getInstance().getBooksAlreadyRead().add(Data.getInstance().getClickedBook()); //add book to "already read" global list
-
-
-//        if (this.BookDetailsToReadButton.isClickable()){ //clicked book exists inside "toRead", must remove
-//            for (int i = 0; i < Data.getInstance().getBooksToRead().size(); i++){
-//                if (Data.getInstance().getBooksToRead().get(i).getId().equals(Data.getInstance().getClickedBook().getId())){
-//                    Data.getInstance().getBooksToRead().remove(i);
-//                }
-//            }
-//
-//            loadButtons();
-//        }
-
-        loadButtons(); //reload buttons so they update
-
+        loadButtons();
         Data.getInstance().printAllBooks();
     }
 
@@ -208,26 +158,21 @@ public class BookDetailsActivity extends AppCompatActivity {
                 Data.getInstance().getClickedBook().setStatus(Data.BookReadStatus.TOREAD);
                 Data.getInstance().getBooksToRead().add(Data.getInstance().getClickedBook());
 
-                Data.getInstance().sortBooksAlphabetically(Data.getInstance().getBooksAlreadyRead()); //SORTING
-
+                Data.getInstance().sortBooks(Data.getInstance().getBooksToRead(), this.sharedPreferences.getString("sorting_choice", "natural"));
                 loadButtons();
                 break;
             case TOREAD:
             case READ:
                 break;
         }
-
         Data.getInstance().printAllBooks();
     }
 
     public void BookDetailsShareAction(View v){
-        //NEED MP2/3 SHARE CODE
-
         Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
         sharingIntent.setType("text/plain");
         String shareBody = "Check out this book! \n " + Data.getInstance().getClickedBook().getPurchaseLink(); //the content we are actually sharing
-        sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT,
-                "Subject Here");
+        sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT,"Subject Here");
         sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
         startActivity(Intent.createChooser(sharingIntent, "Share via"));
     }
@@ -235,9 +180,9 @@ public class BookDetailsActivity extends AppCompatActivity {
     public void BookDetailsBuyAction(View v){
         //https://stackoverflow.com/questions/2201917/how-can-i-open-a-url-in-androids-web-browser-from-my-application
         String url = Data.getInstance().getClickedBook().getPurchaseLink();
-        Intent i = new Intent(Intent.ACTION_VIEW);
-        i.setData(Uri.parse(url));
-        startActivity(i);
+        Intent buy = new Intent(Intent.ACTION_VIEW);
+        buy.setData(Uri.parse(url));
+        startActivity(buy);
     }
 
     @Override

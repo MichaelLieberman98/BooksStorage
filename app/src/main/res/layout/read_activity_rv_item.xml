@@ -6,7 +6,6 @@
     android:layout_margin="30dp"
     android:orientation="vertical">
 
-
     <RelativeLayout
         android:id="@+id/readContainer"
         android:layout_width="wrap_content"
@@ -34,39 +33,5 @@
             android:layout_marginBottom="20dp">
 
         </Button>
-
     </RelativeLayout>
-
 </LinearLayout>
-
-<!--<Button-->
-<!--android:id="@+id/rvRemoveButton"-->
-<!--android:layout_width="0dp"-->
-<!--android:layout_height="match_parent"-->
-<!--android:layout_weight="1"-->
-
-<!--android:layout_marginLeft="30dp"-->
-<!--android:layout_marginRight="5dp"-->
-
-<!--android:layout_marginTop="50dp"-->
-<!--android:layout_marginBottom="50dp"-->
-
-<!--android:text="Remove">-->
-
-<!--</Button>-->
-
-<!--<Button-->
-<!--android:id="@+id/rvReadButton"-->
-<!--android:layout_width="0dp"-->
-<!--android:layout_height="match_parent"-->
-<!--android:layout_weight="1"-->
-
-<!--android:layout_marginLeft="5dp"-->
-<!--android:layout_marginRight="5dp"-->
-
-<!--android:layout_marginTop="50dp"-->
-<!--android:layout_marginBottom="50dp"-->
-
-<!--android:text="Read">-->
-
-<!--</Button>-->

@@ -2,7 +2,7 @@ package com.example.booksstorage;
 
 import java.util.HashMap;
 
-public class Date {
+public class Date extends Object{
     HashMap<Integer, String> dateToMonth = new HashMap<Integer, String>() {{
         put(1, "January");
         put(2, "February");
@@ -70,5 +70,53 @@ public class Date {
 
     public String dateWithMonthWord(){
         return this.sMonth + " " + this.day + ", " + this.year;
+    }
+
+
+    public int compareTo(Object publishDate) { //later: this? 1, other? -1, ==? 0
+        if (publishDate instanceof Date){
+            Date other = (Date) publishDate;
+
+            if (this.getYear() < other.getYear()){
+                return -1;
+            } else if (this.getYear() > other.getYear()){
+                return 1;
+            } else {
+                if (this.getMonth() == -1 && other.getMonth() == -1){
+                    return 0;
+                }
+                if (this.getMonth() == -1) {
+                    return other.getMonth() <= 6 ? 1 : -1;
+                }
+                if (other.getMonth() == -1){
+                    return this.getMonth() <= 6 ? -1: 1;
+                }
+
+                if (this.getMonth() < other.getMonth()){
+                    return -1;
+                } else if (this.getMonth() > other.getMonth()){
+                    return 1;
+                } else {
+                    if (this.getDay() == -1 && other.getDay() == -1){
+                        return 0;
+                    }
+                    if (this.getDay() == -1){
+                        return other.getDay() <= 15 ? 1 : -1;
+                    }
+                    if (other.getDay() == -1){
+                        return this.getDay() <= 15 ? -1 : 1;
+                    }
+
+                    if (this.getDay() < other.getDay()){
+                        return -1;
+                    } else if (this.getDay() > other.getDay()){
+                        return 1;
+                    } else {
+                        return 0;
+                    }
+                }
+            }
+        }
+        return 0;
     }
 }
