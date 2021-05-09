@@ -2,17 +2,13 @@ package com.example.booksstorage;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.PreferenceManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -22,9 +18,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends AppCompatActivity {
+    //SOUNDS - https://www.zapsplat.com/sound-effect-category/swipe-and-swoosh/
+    //https://www.youtube.com/watch?v=9oj4f8721LM
     LinearLayout mainBG;
     EditText searchField;
     ImageView bookImage;
@@ -144,8 +141,6 @@ public class MainActivity extends AppCompatActivity {
         Data.getInstance().getActivityStack().push(Data.Activity.MAIN);
         Data.getInstance().setBooksFromAPI(new ArrayList<>()); //reseting the books from api list
 
-
-
         String completeSearch = allWords[0];
 
         if (allWords.length > 1){
@@ -200,7 +195,6 @@ public class MainActivity extends AppCompatActivity {
             overridePendingTransition(R.anim.slide_from_bottom, R.anim.slide_to_top);
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 }

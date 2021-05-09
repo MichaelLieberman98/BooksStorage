@@ -3,7 +3,6 @@ package com.example.booksstorage;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.preference.PreferenceManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
@@ -43,13 +42,6 @@ public class ToReadActivity extends AppCompatActivity {
         }
 
         this.ToReadActivityRV.setAdapter(new ToReadActivityRVadapter(this));
-
-//        this.orientation = getResources().getConfiguration().orientation;
-//        if (orientation == Configuration.ORIENTATION_LANDSCAPE){
-//            this.ToReadActivityRV.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-//        } else {
-//            this.ToReadActivityRV.setLayoutManager(new LinearLayoutManager(this));
-//        }
 
         StaggeredGridLayoutManager layoutManager;
         this.orientation = getResources().getConfiguration().orientation;

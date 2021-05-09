@@ -55,7 +55,7 @@ public class SettingsActivity extends AppCompatActivity {
         int id = item.getItemId();
         if(id == android.R.id.home){
             finish();
-            onBackPressed();
+            onBackPressed(); //https://stackoverflow.com/questions/14437745/how-to-override-action-bar-back-button-in-android
             return true;
         }
         return super.onOptionsItemSelected(item);

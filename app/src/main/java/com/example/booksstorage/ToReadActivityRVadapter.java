@@ -70,7 +70,7 @@ public class ToReadActivityRVadapter extends RecyclerView.Adapter<ToReadActivity
                     )
             );
             Data.getInstance().setClickedBook(
-                    Data.getInstance().getBooksToRead().get(         //figure out way to create association between button and its book from API
+                    Data.getInstance().getBooksToRead().get( //figure out way to create association between button and its book from API
                             chosen
                     )
             );

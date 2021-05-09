@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityOptionsCompat;
 import androidx.preference.PreferenceManager;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -14,8 +13,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
+
+import java.util.ArrayList;
 
 public class BookDetailsActivity extends AppCompatActivity {
     private LinearLayout mainLayout;
@@ -85,7 +85,26 @@ public class BookDetailsActivity extends AppCompatActivity {
 
         this.BookDetailsTitle.setText(Data.getInstance().getClickedBook().getTitle());
 
-        this.BookDetailsAuthors.setText(Data.getInstance().getClickedBook().getAuthors().get(0));
+        String authorsAsString = "";
+        ArrayList<String> authorsList = Data.getInstance().getClickedBook().getAuthors();
+        switch (authorsList.size()){
+            case 0:
+                authorsAsString = "no authors available";
+                break;
+            case 1:
+                authorsAsString = authorsList.get(0);
+                break;
+            case 2:
+                authorsAsString = authorsList.get(0) + "\n" + authorsList.get(1);
+                break;
+            default:
+                for (int i = 0; i < authorsList.size()-1; i++){
+                    authorsAsString += (authorsList.get(i) + "\n");
+                }
+                authorsAsString += authorsList.get(authorsList.size()-1);
+                break;
+        }
+        this.BookDetailsAuthors.setText(authorsAsString);
 
         System.out.println(Data.getInstance().getClickedBook().getPublishDate().getDay());
         System.out.println(Data.getInstance().getClickedBook().getPublishDate().getMonth());
@@ -100,8 +119,6 @@ public class BookDetailsActivity extends AppCompatActivity {
         } else {
             this.BookDetailsPublishDate.setText(Data.getInstance().getClickedBook().getPublishDate().numsDate());
         }
-
-        this.BookDetailsPublishDate.setText(Data.getInstance().getClickedBook().getPublishDate().numsDate());
 
         this.BookDetailsPublisher.setText(Data.getInstance().getClickedBook().getPublisher());
 
