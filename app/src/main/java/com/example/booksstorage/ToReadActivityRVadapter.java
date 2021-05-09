@@ -1,5 +1,6 @@
 package com.example.booksstorage;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -13,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityOptionsCompat;
 import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -62,18 +64,21 @@ public class ToReadActivityRVadapter extends RecyclerView.Adapter<ToReadActivity
             Data.getInstance().getActivityStack().push(Data.Activity.TOREAD);
 
             Button b = (Button) v;
-            Data.getInstance().setClickedBook(
-                    Data.getInstance().getBooksToRead().get(         //figure out way to create association between button and its book from API
-                            Integer.parseInt(
-                                    b.getText().toString().substring(
-                                            b.getText().toString().indexOf(">")+1
-                                    )
-                            )
+            int chosen = Integer.parseInt(
+                    b.getText().toString().substring(
+                            b.getText().toString().indexOf(">")+1
                     )
             );
+            Data.getInstance().setClickedBook(
+                    Data.getInstance().getBooksToRead().get(         //figure out way to create association between button and its book from API
+                            chosen
+                    )
+            );
+            Data.getInstance().setChosenRecyclerViewPosition(chosen);
 
             Intent show = new Intent(this.ct, BookDetailsActivity.class);
-            this.ct.startActivity(show);
+            ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation((Activity)this.ct, this.ToReadActivityCover, "transition");
+            this.ct.startActivity(show, options.toBundle());
         }
     }
 

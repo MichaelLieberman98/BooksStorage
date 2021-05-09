@@ -26,12 +26,11 @@
 
         <TextView
             android:id="@+id/BookDetailsTitle"
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/BookDetailsCover"
             android:layout_marginTop="25dp"
             android:layout_marginLeft="20dp"
-            android:layout_marginBottom="10dp"
             android:text="BOOK TITLE"
             android:textColor="@color/textColor"
             android:textSize="15dp"
@@ -41,12 +40,11 @@
 
         <TextView
             android:id="@+id/BookDetailsAuthors"
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/BookDetailsCover"
             android:layout_below="@id/BookDetailsTitle"
             android:layout_marginLeft="20dp"
-            android:layout_marginBottom="10dp"
             android:text="BOOK AUTHORS"
             android:textColor="@color/textColor"
             android:textSize="15dp"
@@ -56,12 +54,11 @@
 
         <TextView
             android:id="@+id/BookDetailsPublishDate"
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/BookDetailsCover"
             android:layout_below="@id/BookDetailsAuthors"
             android:layout_marginLeft="20dp"
-            android:layout_marginBottom="10dp"
             android:text="BOOK PUBLISH DATE"
             android:textColor="@color/textColor"
             android:textSize="15dp"
@@ -71,12 +68,11 @@
 
         <TextView
             android:id="@+id/BookDetailsPublisher"
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/BookDetailsCover"
             android:layout_below="@id/BookDetailsPublishDate"
             android:layout_marginLeft="20dp"
-            android:layout_marginBottom="10dp"
             android:text="BOOK PUBLISHER"
             android:textColor="@color/textColor"
             android:textSize="15dp"
@@ -94,7 +90,6 @@
             android:layout_toRightOf="@+id/BookDetailsCover"
             android:layout_below="@id/BookDetailsPublisher"
             android:layout_marginLeft="20dp"
-            android:layout_marginBottom="5dp"
             android:backgroundTint="@color/allRecyclerViewMoreButtonColors">
 
         </Button>
@@ -109,7 +104,6 @@
             android:layout_toRightOf="@+id/BookDetailsReadButton"
             android:layout_below="@id/BookDetailsPublisher"
             android:layout_marginLeft="10dp"
-            android:layout_marginBottom="5dp"
             android:backgroundTint="@color/allRecyclerViewMoreButtonColors">
 
         </Button>
@@ -124,7 +118,6 @@
             android:layout_below="@id/BookDetailsReadButton"
             android:layout_toRightOf="@+id/BookDetailsCover"
             android:layout_marginLeft="20dp"
-            android:layout_marginBottom="5dp"
             android:backgroundTint="@color/allRecyclerViewMoreButtonColors">
 
         </Button>
@@ -139,7 +132,6 @@
             android:layout_below="@id/BookDetailsToReadButton"
             android:layout_toRightOf="@+id/BookDetailsShareButton"
             android:layout_marginLeft="10dp"
-            android:layout_marginBottom="5dp"
             android:backgroundTint="@color/allRecyclerViewMoreButtonColors">
 
         </Button>
@@ -149,7 +141,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_marginTop="25dp"
-            android:layout_marginLeft="80dp"
+            android:layout_marginLeft="40dp"
             android:layout_marginRight="5dp"
             android:layout_toRightOf="@+id/BookDetailsTitle">
 

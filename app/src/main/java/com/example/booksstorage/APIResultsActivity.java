@@ -1,19 +1,26 @@
 
 package com.example.booksstorage;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.os.Build;
 import android.os.Bundle;
+import android.view.View;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
+@RequiresApi(api = Build.VERSION_CODES.M)
 public class APIResultsActivity extends AppCompatActivity {
     private ConstraintLayout mainLayout;
     private RecyclerView temprv;
@@ -31,14 +38,18 @@ public class APIResultsActivity extends AppCompatActivity {
 
         this.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
-        try {
-            new FetchBook(this).execute(Data.getInstance().getBookSearch()).get(); //https://stackoverflow.com/questions/14827532/waiting-till-the-async-task-finish-its-work/14827618
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        if (!Data.getInstance().getChoseAPIBook()){
+            try {
+                new FetchBook(this).execute(Data.getInstance().getBookSearch()).get(); //https://stackoverflow.com/questions/14827532/waiting-till-the-async-task-finish-its-work/14827618
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
+        Data.getInstance().setChoseAPIBook(false);
         loadContent();
+
 
     }
 
@@ -58,15 +69,23 @@ public class APIResultsActivity extends AppCompatActivity {
 
         this.orientation = getResources().getConfiguration().orientation;
 
-        if(orientation == Configuration.ORIENTATION_LANDSCAPE){
-            this.temprv.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        StaggeredGridLayoutManager layoutManager;
+        this.orientation = getResources().getConfiguration().orientation;
+        if (orientation == Configuration.ORIENTATION_LANDSCAPE){
+            layoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL);
         } else {
-            this.temprv.setLayoutManager(new LinearLayoutManager(this));
+            layoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
         }
+
+        layoutManager.scrollToPosition(
+                Data.getInstance().getChosenRecyclerViewPosition()
+        );
+        this.temprv.setLayoutManager(layoutManager);
     }
 
     @Override
     public void onBackPressed(){
+        Data.getInstance().setChosenRecyclerViewPosition(0);
         Intent back = null;
         switch(Data.getInstance().getActivityStack().peek()){
             case MAIN:
@@ -75,5 +94,6 @@ public class APIResultsActivity extends AppCompatActivity {
         }
         Data.getInstance().getActivityStack().pop();
         startActivity(back);
+        overridePendingTransition(R.anim.slide_from_bottom, R.anim.slide_to_top);
     }
 }

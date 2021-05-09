@@ -1,5 +1,6 @@
 package com.example.booksstorage;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -8,12 +9,16 @@ import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.ScaleAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityOptionsCompat;
 import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -21,7 +26,9 @@ import java.util.ArrayList;
 
 public class tempAPIAdapter extends RecyclerView.Adapter<tempAPIAdapter.APIBookItemHolder> {
     private Context ct;
+    private int highestBookCount = 0;
     public tempAPIAdapter(Context ct){
+        System.out.println("apiadapter FB API SIZE RN = " + Data.getInstance().getBooksFromAPI().size());
         this.ct = ct;
     }
     @NonNull
@@ -77,26 +84,34 @@ public class tempAPIAdapter extends RecyclerView.Adapter<tempAPIAdapter.APIBookI
 
         @Override
         public void onClick(View v) {                                   //https://stackoverflow.com/questions/24885223/why-doesnt-recyclerview-have-onitemclicklistener
+            Data.getInstance().setChoseAPIBook(true);
             Data.getInstance().getActivityStack().push(Data.Activity.APIRESULTS);
 
             Button b = (Button) v;
+            int chosen = Integer.parseInt(
+                    b.getText().toString().substring(
+                            b.getText().toString().indexOf(">")+1
+                    )
+            );
             Data.getInstance().setClickedBook(
-                    Data.getInstance().getBooksFromAPI().get(         //figure out way to create association between button and its book from API
-                            Integer.parseInt(
-                                    b.getText().toString().substring(
-                                            b.getText().toString().indexOf(">")+1
-                                    )
-                            )
+                    Data.getInstance().getBooksFromAPI().get( //figure out way to create association between button and its book from API
+                            chosen
                     )
             );
 
+            Data.getInstance().setChosenRecyclerViewPosition(chosen);
+
             Intent show = new Intent(this.ct, BookDetailsActivity.class);
-            ct.startActivity(show);
+            ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation((Activity)this.ct, this.tempAPIcover, "transition");
+            ct.startActivity(show, options.toBundle());
         }
     }
 
     @Override
     public void onBindViewHolder(@NonNull tempAPIAdapter.APIBookItemHolder holder, int position) {
+
+        System.out.println("adpater bind FB API SIZE RN = " + Data.getInstance().getBooksFromAPI().size());
+
         holder.tempAPIcover.setImageBitmap(Data.getInstance().getBooksFromAPI().get(position).getCover());
 
         holder.tempAPItitle.setText(Data.getInstance().getBooksFromAPI().get(position).getTitle());
@@ -142,6 +157,23 @@ public class tempAPIAdapter extends RecyclerView.Adapter<tempAPIAdapter.APIBookI
 
         //https://stackoverflow.com/questions/45998111/displaying-buttons-text-with-two-different-colors
 
+        highestBookCount++;
+        if (position == this.highestBookCount - 1){
+//        setFadeAnimation(holder.itemView);
+            setScaleAnimation(holder.itemView);
+        }
+    }
+
+    public void setFadeAnimation(View view){
+        AlphaAnimation anim = new AlphaAnimation(0.0f, 1.0f);
+        anim.setDuration(1000);
+        view.startAnimation(anim);
+    }
+
+    private void setScaleAnimation(View view) {
+        ScaleAnimation anim = new ScaleAnimation(0.0f, 1.0f, 0.0f, 1.0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        anim.setDuration(1000);
+        view.startAnimation(anim);
     }
 
     //DYNAMIC ADDING

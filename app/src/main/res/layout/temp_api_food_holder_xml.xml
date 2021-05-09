@@ -17,7 +17,7 @@
             android:layout_height="@dimen/bookcover_height"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_margin="20dp"></ImageView>
+            android:layout_margin="20dp" />
 
         <TextView
             android:id="@+id/tempAPItitle"
@@ -29,7 +29,7 @@
             android:text="BOOK TITLE"
             android:textColor="@color/textColor"
             android:textSize="15dp"
-            android:textStyle="bold"></TextView>
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tempAPIauthors"
@@ -40,7 +40,7 @@
             android:text="BOOK AUTHORS"
             android:textColor="@color/textColor"
             android:textSize="15dp"
-            android:textStyle="bold"></TextView>
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tempAPIpublishDate"
@@ -51,7 +51,7 @@
             android:text="BOOK PUBLISH DATE"
             android:textColor="@color/textColor"
             android:textSize="15dp"
-            android:textStyle="bold"></TextView>
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tempAPIpublishers"
@@ -62,7 +62,7 @@
             android:text="BOOK PUBLISHER"
             android:textColor="@color/textColor"
             android:textSize="15dp"
-            android:textStyle="bold"></TextView>
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/tempAPImoreButton"
@@ -73,6 +73,6 @@
             android:backgroundTint="@color/blueButton"
             android:text="More >"
             android:textSize="15dp"
-            android:textStyle="bold"></Button>
+            android:textStyle="bold" />
     </RelativeLayout>
 </LinearLayout>

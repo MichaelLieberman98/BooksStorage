@@ -5,6 +5,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -43,16 +44,29 @@ public class ToReadActivity extends AppCompatActivity {
 
         this.ToReadActivityRV.setAdapter(new ToReadActivityRVadapter(this));
 
+//        this.orientation = getResources().getConfiguration().orientation;
+//        if (orientation == Configuration.ORIENTATION_LANDSCAPE){
+//            this.ToReadActivityRV.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+//        } else {
+//            this.ToReadActivityRV.setLayoutManager(new LinearLayoutManager(this));
+//        }
+
+        StaggeredGridLayoutManager layoutManager;
         this.orientation = getResources().getConfiguration().orientation;
         if (orientation == Configuration.ORIENTATION_LANDSCAPE){
-            this.ToReadActivityRV.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+            layoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL);
         } else {
-            this.ToReadActivityRV.setLayoutManager(new LinearLayoutManager(this));
+            layoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
         }
+        layoutManager.scrollToPosition(
+                Data.getInstance().getChosenRecyclerViewPosition()
+        );
+        this.ToReadActivityRV.setLayoutManager(layoutManager);
     }
 
     @Override
     public void onBackPressed(){
+        Data.getInstance().setChosenRecyclerViewPosition(0);
         Intent back = null;
         switch(Data.getInstance().getActivityStack().peek()){
             case MAIN:
@@ -61,5 +75,6 @@ public class ToReadActivity extends AppCompatActivity {
         }
         Data.getInstance().getActivityStack().pop();
         startActivity(back);
+        overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
     }
 }

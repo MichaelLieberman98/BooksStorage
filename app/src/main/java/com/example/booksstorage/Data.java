@@ -131,4 +131,24 @@ public class Data {
             }
         });
     }
+
+
+    private int chosenRecyclerViewPosition = 0;
+
+    public int getChosenRecyclerViewPosition() {
+        return this.chosenRecyclerViewPosition;
+    }
+
+    public void setChosenRecyclerViewPosition(int chosenRecyclerViewPosition) {
+        this.chosenRecyclerViewPosition = chosenRecyclerViewPosition;
+    }
+
+
+    private boolean choseAPIBook = false;
+    public boolean getChoseAPIBook(){
+        return this.choseAPIBook;
+    }
+    public void setChoseAPIBook(boolean choseAPIBook){
+        this.choseAPIBook = choseAPIBook;
+    }
 }

@@ -23,9 +23,8 @@ public class FetchBook extends AsyncTask<String, Void, String> {
 
     @Override
     protected String doInBackground(String[] strings) {
-        System.out.println("strings[0] = " + strings[0]);
         String s = NetworkUtils.getBookInfo(strings[0]);
-        System.out.println("STRING RETRIEVED " + s);
+        System.out.println("STRING LENGTH RETRIEVED " + s.length());
         return s;
     }
 
@@ -48,7 +47,7 @@ public class FetchBook extends AsyncTask<String, Void, String> {
                     String pre = url.substring(0, 4);
                     String post = url.substring(4, url.length());
 
-                System.out.println(pre+"s"+post);
+//                System.out.println(pre+"s"+post);
                     try {
                         bitmap = new GetImageFromURL().execute(pre+"s"+post).get();
                     } catch (ExecutionException e) {
@@ -72,7 +71,7 @@ public class FetchBook extends AsyncTask<String, Void, String> {
 
                 //https://stackoverflow.com/questions/15871309/convert-jsonarray-to-string-array/57092365
                 JSONArray JSONauthors = JSONbook.getJSONObject("volumeInfo").getJSONArray("authors");
-                System.out.println("json authors size = " + JSONauthors.length());
+//                System.out.println("json authors size = " + JSONauthors.length());
                 ArrayList<String> authors = new ArrayList<>();
 
                 for (int j = 0; j < JSONauthors.length(); j++){
@@ -90,7 +89,7 @@ public class FetchBook extends AsyncTask<String, Void, String> {
                 String[] publishDateArray = sPublishDate.split("-");
 
                 Date date = null;
-                System.out.println(publishDateArray.length);
+//                System.out.println(publishDateArray.length);
 
                 switch (publishDateArray.length){
                     case 1:

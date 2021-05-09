@@ -1,8 +1,10 @@
 package com.example.booksstorage;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityOptionsCompat;
 import androidx.preference.PreferenceManager;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -12,6 +14,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 public class BookDetailsActivity extends AppCompatActivity {
@@ -201,6 +204,7 @@ public class BookDetailsActivity extends AppCompatActivity {
                 break;
         }
         Data.getInstance().getActivityStack().pop();
-        startActivity(back);
+        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, this.BookDetailsCover, "transition");
+        startActivity(back, options.toBundle());
     }
 }

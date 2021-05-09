@@ -13,12 +13,13 @@
         android:layout_gravity="center_horizontal"
         android:background="@drawable/border_light_mode">
 
-    <ImageView
-        android:id="@+id/ReadActivityCover"
-        android:layout_width="@dimen/bookcover_width"
-        android:layout_height="@dimen/bookcover_height"
-        android:layout_centerHorizontal="true"
-        android:layout_margin="20dp"></ImageView>
+        <ImageView
+            android:id="@+id/ReadActivityCover"
+            android:layout_width="@dimen/bookcover_width"
+            android:layout_height="@dimen/bookcover_height"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="20dp"
+            android:transitionName="transition" />
 
         <Button
             android:id="@+id/ReadActivityMore"

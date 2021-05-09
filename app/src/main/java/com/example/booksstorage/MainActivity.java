@@ -135,38 +135,43 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void searchAction(View v){
+        String[] allWords;
         if (!(this.searchField.getText().length() == 0)){
-            Data.getInstance().getActivityStack().push(Data.Activity.MAIN);
-            Data.getInstance().setBooksFromAPI(new ArrayList<>()); //reseting the books from api list
-
-            String[] allWords = this.searchField.getText().toString().split(" ");
-
-            String completeSearch = allWords[0];
-
-            if (allWords.length > 1){
-                for (int i = 1; i < allWords.length; i++){
-                    completeSearch += ("+"+allWords[i]);
-                }
-            }
-            Data.getInstance().setBookSearch(Data.getInstance().bookSearchURL + completeSearch);
-//        System.out.println("search = " + Data.getInstance().getBookSearch());
-            Intent results = new Intent(this, APIResultsActivity.class);
-            startActivity(results);
-        } else {
-
+            allWords = this.searchField.getText().toString().split(" ");
+        } else { //afterwards, notify user that they must TYPE SOMETHING
+            allWords = new String[]{"the", "help"};
         }
+        Data.getInstance().getActivityStack().push(Data.Activity.MAIN);
+        Data.getInstance().setBooksFromAPI(new ArrayList<>()); //reseting the books from api list
+
+
+
+        String completeSearch = allWords[0];
+
+        if (allWords.length > 1){
+            for (int i = 1; i < allWords.length; i++){
+                completeSearch += ("+"+allWords[i]);
+            }
+        }
+        Data.getInstance().setBookSearch(Data.getInstance().bookSearchURL + completeSearch);
+//        System.out.println("search = " + Data.getInstance().getBookSearch());
+        Intent results = new Intent(this, APIResultsActivity.class);
+        startActivity(results);
+        overridePendingTransition(R.anim.slide_from_top, R.anim.slide_to_bottom);
     }
 
     public void readAction(View v){
         Data.getInstance().getActivityStack().push(Data.Activity.MAIN);
         Intent toRead = new Intent(this, ReadActivity.class);
         startActivity(toRead);
+        overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
     }
 
     public void toReadAction(View v){
         Data.getInstance().getActivityStack().push(Data.Activity.MAIN);
         Intent read = new Intent(this, ToReadActivity.class);
         startActivity(read);
+        overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
     }
 
     @Override
@@ -192,6 +197,7 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.action_settings) {
             Intent intent = new Intent(this, SettingsActivity.class);
             startActivity(intent);
+            overridePendingTransition(R.anim.slide_from_bottom, R.anim.slide_to_top);
             return true;
         }
 

@@ -1,5 +1,6 @@
 package com.example.booksstorage;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -54,8 +55,16 @@ public class SettingsActivity extends AppCompatActivity {
         int id = item.getItemId();
         if(id == android.R.id.home){
             finish();
+            onBackPressed();
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed(){
+        Intent main = new Intent(this, MainActivity.class);
+        startActivity(main);
+        overridePendingTransition(R.anim.slide_from_top, R.anim.slide_to_bottom);
     }
 }
