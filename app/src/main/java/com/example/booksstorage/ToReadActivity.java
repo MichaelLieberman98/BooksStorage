@@ -67,6 +67,7 @@ public class ToReadActivity extends AppCompatActivity {
         }
         Data.getInstance().getActivityStack().pop();
         startActivity(back);
+        //https://www.youtube.com/watch?v=dpgUYoy-Ilk
         overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
     }
 }

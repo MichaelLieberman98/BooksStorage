@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityOptionsCompat;
 import androidx.preference.PreferenceManager;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -207,7 +208,7 @@ public class BookDetailsActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed(){
-        Intent back = null;
+        Intent back;
         System.out.println("details activity stack  = " + Data.getInstance().getActivityStack().peek());
         switch(Data.getInstance().getActivityStack().peek()){
             case READ:
@@ -219,9 +220,14 @@ public class BookDetailsActivity extends AppCompatActivity {
             case APIRESULTS:
                 back = new Intent(this, APIResultsActivity.class);
                 break;
+            default:
+                back = new Intent(this, MainActivity.class);
+                break;
         }
         Data.getInstance().getActivityStack().pop();
-        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, this.BookDetailsCover, "transition");
+        //https://guides.codepath.com/android/shared-element-activity-transition#3-start-activity
+        //https://stackoverflow.com/questions/40999694/cannot-use-activityoptionscompat-in-onclick-method
+        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation((Activity)this, (ImageView) this.BookDetailsCover, "transition");
         startActivity(back, options.toBundle());
     }
 }

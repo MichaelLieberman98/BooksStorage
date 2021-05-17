@@ -22,6 +22,8 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
     //SOUNDS - https://www.zapsplat.com/sound-effect-category/swipe-and-swoosh/
     //https://www.youtube.com/watch?v=9oj4f8721LM
+
+    //animations - https://developer.android.com/guide/topics/graphics/spring-animation
     LinearLayout mainBG;
     EditText searchField;
     ImageView bookImage;
@@ -152,6 +154,7 @@ public class MainActivity extends AppCompatActivity {
 //        System.out.println("search = " + Data.getInstance().getBookSearch());
         Intent results = new Intent(this, APIResultsActivity.class);
         startActivity(results);
+        //https://www.youtube.com/watch?v=dpgUYoy-Ilk
         overridePendingTransition(R.anim.slide_from_top, R.anim.slide_to_bottom);
     }
 
@@ -159,6 +162,7 @@ public class MainActivity extends AppCompatActivity {
         Data.getInstance().getActivityStack().push(Data.Activity.MAIN);
         Intent toRead = new Intent(this, ReadActivity.class);
         startActivity(toRead);
+        //https://www.youtube.com/watch?v=dpgUYoy-Ilk
         overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
     }
 
@@ -166,6 +170,7 @@ public class MainActivity extends AppCompatActivity {
         Data.getInstance().getActivityStack().push(Data.Activity.MAIN);
         Intent read = new Intent(this, ToReadActivity.class);
         startActivity(read);
+        //https://www.youtube.com/watch?v=dpgUYoy-Ilk
         overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
     }
 
@@ -192,6 +197,7 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.action_settings) {
             Intent intent = new Intent(this, SettingsActivity.class);
             startActivity(intent);
+            //https://www.youtube.com/watch?v=dpgUYoy-Ilk
             overridePendingTransition(R.anim.slide_from_bottom, R.anim.slide_to_top);
             return true;
         }

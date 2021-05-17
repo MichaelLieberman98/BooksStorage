@@ -11,9 +11,13 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceManager;
+import androidx.preference.PreferenceScreen;
+import androidx.preference.SwitchPreference;
 
 public class SettingsActivity extends AppCompatActivity {
     FrameLayout settingsContainer;
+    SwitchPreference preferenceScreenContainer;
+    //https://stackoverflow.com/questions/39152571/how-to-change-switchpreference-title-when-is-clicked
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +36,8 @@ public class SettingsActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
+
+
         settingsContainer = findViewById(R.id.settingsContainer);
         PreferenceManager.setDefaultValues(this, R.xml.root_preferences, false);
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -41,6 +47,9 @@ public class SettingsActivity extends AppCompatActivity {
         } else {
             this.settingsContainer.setBackgroundColor(getResources().getColor(R.color.light_mode_main_background));
         }
+
+        this.preferenceScreenContainer = (SwitchPreference) fragment.findPreference("preferenceScreenContainer");
+        SwitchPreference pref = (SwitchPreference) fragment.findPreference("lightdark");
     }
 
     public static class SettingsFragment extends PreferenceFragmentCompat{
@@ -65,6 +74,7 @@ public class SettingsActivity extends AppCompatActivity {
     public void onBackPressed(){
         Intent main = new Intent(this, MainActivity.class);
         startActivity(main);
+        //https://www.youtube.com/watch?v=dpgUYoy-Ilk
         overridePendingTransition(R.anim.slide_from_top, R.anim.slide_to_bottom);
     }
 }

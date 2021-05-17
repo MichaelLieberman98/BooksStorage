@@ -47,6 +47,11 @@ public class APIResultsActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
+
+        //https://stackoverflow.com/questions/28539666/recyclerview-adapter-and-viewholder-update-dynamically
+        //https://stackoverflow.com/questions/9273989/how-do-i-retrieve-the-data-from-asynctasks-doinbackground
+        //https://github.com/lalit3686/AsyncTaskReturnValue/blob/master/src/com/example/asynctaskreturnvalue/MainActivity.java
+
         Data.getInstance().setChoseAPIBook(false);
         loadContent();
 
@@ -64,12 +69,12 @@ public class APIResultsActivity extends AppCompatActivity {
         }
 
         this.adapter = new tempAPIAdapter(this);
-//        adapter.notifyDataSetChanged(); //dynamic adding
+//        adapter.notifyDataSetChanged(); //dynamic adding https://stackoverflow.com/questions/51261653/i-have-to-display-one-item-in-my-recyclerview-after-every-2-seconds
         this.temprv.setAdapter(adapter);
 
         this.orientation = getResources().getConfiguration().orientation;
 
-        StaggeredGridLayoutManager layoutManager;
+        StaggeredGridLayoutManager layoutManager; //https://stackoverflow.com/questions/51499834/how-to-tell-recyclerview-to-start-at-specific-item-position
         this.orientation = getResources().getConfiguration().orientation;
         if (orientation == Configuration.ORIENTATION_LANDSCAPE){
             layoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL);
@@ -94,6 +99,7 @@ public class APIResultsActivity extends AppCompatActivity {
         }
         Data.getInstance().getActivityStack().pop();
         startActivity(back);
+        //https://www.youtube.com/watch?v=dpgUYoy-Ilk
         overridePendingTransition(R.anim.slide_from_bottom, R.anim.slide_to_top);
     }
 }

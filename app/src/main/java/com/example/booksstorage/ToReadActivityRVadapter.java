@@ -32,20 +32,22 @@ public class ToReadActivityRVadapter extends RecyclerView.Adapter<ToReadActivity
         return new ToReadActivityRVadapter.ToReadActivityRVHolder(v, ct);
     }
 
-    public static class ToReadActivityRVHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public static class ToReadActivityRVHolder extends RecyclerView.ViewHolder{
         ImageView ToReadActivityCover;
         RelativeLayout toReadContainer;
         Button ToReadActivityMore;
         SharedPreferences sharedPreferences;
 
         Context ct;
+
+        ImageView imageView;
         public ToReadActivityRVHolder(@NonNull View itemView, Context ct){
             super(itemView);
 
             this.ToReadActivityCover = (ImageView) itemView.findViewById(R.id.ToReadActivityCover);
             this.toReadContainer = (RelativeLayout) itemView.findViewById(R.id.toReadContainer);
             this.ToReadActivityMore = (Button) itemView.findViewById(R.id.ToReadActivityMore);
-            this.ToReadActivityMore.setOnClickListener(this);
+//            this.ToReadActivityMore.setOnClickListener(this);
 
             this.ct = ct;
             this.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(ct);
@@ -57,39 +59,54 @@ public class ToReadActivityRVadapter extends RecyclerView.Adapter<ToReadActivity
                 Drawable lightMode = ct.getResources().getDrawable(R.drawable.border_light_mode);
                 this.toReadContainer.setBackground(lightMode);
             }
+
+            this.imageView = imageView;
         }
 
-        @Override
-        public void onClick(View v){
-            Data.getInstance().getActivityStack().push(Data.Activity.TOREAD);
-
-            Button b = (Button) v;
-            int chosen = Integer.parseInt(
-                    b.getText().toString().substring(
-                            b.getText().toString().indexOf(">")+1
-                    )
-            );
-            Data.getInstance().setClickedBook(
-                    Data.getInstance().getBooksToRead().get( //figure out way to create association between button and its book from API
-                            chosen
-                    )
-            );
-            Data.getInstance().setChosenRecyclerViewPosition(chosen);
-
-            Intent show = new Intent(this.ct, BookDetailsActivity.class);
-            ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation((Activity)this.ct, this.ToReadActivityCover, "transition");
-            this.ct.startActivity(show, options.toBundle());
+        public ImageView getImageViewFromHolder(){
+            return this.imageView;
         }
     }
+
+
+
+
+
+
 
     @Override
     public void onBindViewHolder(@NonNull ToReadActivityRVadapter.ToReadActivityRVHolder holder, int position){
         holder.ToReadActivityCover.setImageBitmap(Data.getInstance().getBooksToRead().get(position).getCover());
 
-        String redString= "<font color="+ ct.getResources().getColor(R.color.button_text_color)+">More ></font>";
-        String blackString = "<font color="+ ct.getResources().getColor(R.color.blueButton)+">"+position+"</font>";
+        //next 3 lines were used for when we click on button and need to know which item from the adapter we actually clicked on,
+        //we no longer need this code
+//        String redString= "<font color="+ ct.getResources().getColor(R.color.button_text_color)+">More ></font>";
+//        String blackString = "<font color="+ ct.getResources().getColor(R.color.blueButton)+">"+position+"</font>";
+//        holder.ToReadActivityMore.setText(Html.fromHtml(redString + blackString));
 
-        holder.ToReadActivityMore.setText(Html.fromHtml(redString + blackString));
+        holder.ToReadActivityMore.setText("More >");
+        holder.ToReadActivityMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Data.getInstance().getActivityStack().push(Data.Activity.TOREAD);
+
+//                https://stackoverflow.com/questions/48735221/onclick-for-each-button-inside-recyclerview-items/48735328
+                int chosen = holder.getAdapterPosition();
+                Data.getInstance().setClickedBook(
+                        Data.getInstance().getBooksToRead().get( //figure out way to create association between button and its book from API
+                                chosen
+                        )
+                );
+
+                Data.getInstance().setChosenRecyclerViewPosition(chosen);
+
+                Intent show = new Intent(ct, BookDetailsActivity.class);
+                //https://guides.codepath.com/android/shared-element-activity-transition#3-start-activity
+                //https://stackoverflow.com/questions/40999694/cannot-use-activityoptionscompat-in-onclick-method
+                ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation((Activity)ct, (ImageView)holder.ToReadActivityCover, "transition");
+                ct.startActivity(show, options.toBundle());
+            }
+        });
     }
 
     @Override
